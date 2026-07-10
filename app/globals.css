@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --parchment:      #F0EDE6;
+    --parchment-mid:  #E8E4DC;
+    --parchment-deep: #DDD8CE;
+    --forest-900:     #1C2B1A;
+    --forest-800:     #253322;
+    --forest-700:     #2D3D2A;
+    --forest-600:     #3D5232;
+    --forest-500:     #4A6741;
+    --forest-400:     #5C7A52;
+    --forest-300:     #7A9970;
+    --forest-200:     #A8C09E;
+    --forest-100:     #C8D9C3;
+    --forest-50:      #E8F0E5;
+    --gold:           #8B7355;
+    --gold-light:     #A89070;
+    --gold-dark:      #6B5640;
+    --text-primary:   #1C2B1A;
+    --text-body:      #3A4A37;
+    --text-muted:     #6B7D68;
+    --text-ghost:     #9BAA96;
+    --border:         rgba(61,82,50,0.12);
+    --border-strong:  rgba(61,82,50,0.25);
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--parchment);
+  color: var(--text-primary);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Paper grain */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.022'/%3E%3C/svg%3E");
+}
+
+h1,h2,h3,h4 { font-family: 'Cormorant Garamond', Georgia, serif; color: var(--text-primary); line-height: 1.1; }
+p { font-family: 'Inter', system-ui, sans-serif; font-size: 0.95rem; line-height: 1.8; color: var(--text-body); }
+
+.display  { font-size: clamp(3rem,8vw,7rem);   font-weight: 300; letter-spacing: -0.025em; line-height: 0.95; }
+.headline { font-size: clamp(1.8rem,4vw,3.5rem); font-weight: 300; letter-spacing: -0.01em; }
+.overline { font-family: 'Inter', sans-serif; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+.section   { padding: 7rem 0; }
+.rule      { width: 2.5rem; height: 1px; background: var(--gold); margin: 1.2rem 0; }
+.rule-center { margin: 1.2rem auto; }
+
+/* ── Responsive grid utilities ──────────────────────────────────────────
+   Most layouts on this site use inline `gridTemplateColumns` (e.g. "1fr 400px",
+   "260px 1fr", "1.5fr 1fr 1fr") with no mobile breakpoint at all — they just
+   stay side-by-side and get crushed on small screens. These classes collapse
+   them to a single column below the given breakpoint. `!important` is
+   required here specifically because they need to win over an inline style,
+   which normally beats an external stylesheet. */
+@media (max-width: 900px) {
+  .nn-rg    { grid-template-columns: 1fr !important; gap: 3rem !important; }
+  .nn-rg3   { grid-template-columns: 1fr 1fr !important; }
+}
+@media (max-width: 640px) {
+  .nn-rg    { gap: 2.5rem !important; }
+  .nn-rg3   { grid-template-columns: 1fr !important; gap: 2.5rem !important; }
+  .nn-rg3-item { border-left: none !important; padding: 2rem 0 !important; border-top: 1px solid rgba(92,122,82,0.2); }
+  .nn-rg3-item:first-child { border-top: none; padding-top: 0 !important; }
+  .nn-rg-sm { grid-template-columns: 1fr !important; }
+  .nn-rg-timeline { grid-template-columns: 56px 1fr !important; gap: 1.2rem !important; }
+  .container { padding: 0 1.25rem; }
+  .display { font-size: clamp(2.2rem, 10vw, 3rem) !important; }
+
+  /* Admin dashboard: fixed 230px sidebar + margin-left layout doesn't work on
+     phone-width screens — collapse it into a horizontally scrollable top bar. */
+  .admin-sidebar {
+    position: static !important;
+    width: 100% !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    height: auto !important;
+  }
+  .admin-sidebar-nav {
+    display: flex !important;
+    flex: none !important;
+    overflow-x: auto !important;
+    padding: 0.6rem !important;
+  }
+  .admin-sidebar-nav .admin-sidebar-link { flex-shrink: 0; white-space: nowrap; }
+  .admin-main { margin-left: 0 !important; padding: 1.5rem 1.25rem !important; }
+}
+
+/* Buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; font-family: 'Inter', sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; padding: 0.9rem 2rem; border: none; cursor: pointer; transition: all 0.2s ease; white-space: nowrap; }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn-forest        { background: var(--forest-700); color: var(--forest-100); }
+.btn-forest:hover  { background: var(--forest-600); transform: translateY(-1px); }
+.btn-outline       { background: transparent; color: var(--forest-700); border: 1.5px solid var(--forest-400); }
+.btn-outline:hover { background: var(--forest-700); color: var(--forest-100); border-color: var(--forest-700); }
+.btn-light         { background: transparent; color: var(--forest-100); border: 1.5px solid rgba(200,217,195,0.35); }
+.btn-light:hover   { background: rgba(200,217,195,0.12); border-color: var(--forest-200); }
+.btn-gold          { background: var(--gold); color: var(--parchment); }
+.btn-gold:hover    { background: var(--gold-dark); transform: translateY(-1px); }
+.btn-parchment     { background: var(--parchment); color: var(--forest-800); }
+.btn-parchment:hover { background: var(--parchment-mid); }
+
+/* Form fields */
+.field-label { display: block; font-family: 'Inter', sans-serif; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--forest-500); margin-bottom: 0.4rem; }
+.field-input { width: 100%; padding: 0.85rem 1.1rem; background: white; border: 1.5px solid var(--border-strong); font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--text-primary); outline: none; transition: border-color 0.2s ease; display: block; appearance: none; }
+.field-input:focus { border-color: var(--forest-500); }
+.field-input::placeholder { color: var(--text-ghost); }
+
+/* Image upload zone */
+.upload-zone { position: relative; cursor: pointer; overflow: hidden; }
+.upload-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; z-index: 2; }
+.upload-zone .upload-overlay { position: absolute; inset: 0; background: rgba(29,43,26,0.55); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s ease; z-index: 1; }
+.upload-zone:hover .upload-overlay { opacity: 1; }
+
+/* Reveal animation */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+/* Admin */
+.admin-sidebar-link { display: flex; align-items: center; gap: 0.7rem; padding: 0.7rem 1.6rem; text-decoration: none; border-left: 2px solid transparent; transition: all 0.15s ease; }
+.admin-sidebar-link:hover { background: rgba(61,82,50,0.15); }
+.admin-sidebar-link.active { background: rgba(61,82,50,0.25); border-left-color: var(--gold); }
+.admin-sidebar-link .icon { font-size: 0.85rem; color: rgba(155,170,150,0.45); flex-shrink: 0; }
+.admin-sidebar-link.active .icon { color: var(--gold-light); }
+.admin-sidebar-link .label { font-family: Inter, sans-serif; font-size: 0.78rem; color: rgba(168,192,158,0.55); letter-spacing: 0.03em; }
+.admin-sidebar-link.active .label { font-weight: 500; color: var(--parchment); }
+.admin-sidebar-link:hover .label { color: rgba(168,192,158,0.85); }
+
+@keyframes fadeUp   { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+@keyframes breathe  { 0%,100% { opacity:0.4; } 50% { opacity:0.85; } }
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--parchment); }
+::-webkit-scrollbar-thumb { background: var(--forest-300); border-radius: 3px; }
