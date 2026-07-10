@@ -33,7 +33,7 @@ function loadCalScript() {
       cal.loaded = true
     }
     if (args[0] === 'init') {
-      const api = function (...apiArgs: any[]) { p(api, apiArgs) }
+      const api: any = function (...apiArgs: any[]) { p(api, apiArgs) }
       const namespace = args[1]
       api.q = api.q || []
       if (typeof namespace === 'string') {
