@@ -5,6 +5,7 @@ import { Post }      from '@/lib/models/Post'
 import { serialize, formatDate } from '@/lib/utils'
 import type { PostDoc } from '@/types'
 import { JOURNAL_PLACEHOLDERS } from '@/lib/journalPlaceholders'
+import Media from '@/components/ui/Media'
 
 export const metadata: Metadata = { title: 'Journal' }
 export const revalidate = 3600
@@ -42,7 +43,7 @@ export default async function JournalPage() {
             <div className="nn-rg" style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'4rem', alignItems:'center' }}>
               <div style={{ aspectRatio:'4/3', background:'linear-gradient(140deg,var(--forest-700),var(--forest-400))', position:'relative', overflow:'hidden', display:'flex', alignItems:'center', justifyContent:'center' }}>
                 {featured.coverImage
-                  ? <img src={featured.coverImage} alt={featured.title} style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover' }}/>
+                  ? <Media src={featured.coverImage} alt={featured.title} style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover' }}/>
                   : <svg style={{ position:'absolute', inset:0, width:'100%', height:'100%' }} viewBox="0 0 500 375"><path d="M0 375 Q125 200 250 280 Q375 150 500 220 L500 375Z" fill="rgba(28,43,26,0.4)"/></svg>
                 }
               </div>
@@ -65,7 +66,7 @@ export default async function JournalPage() {
                 <Link key={post.id} href={`/journal/${post.slug}`} style={{ textDecoration:'none' }}>
                   <article>
                     <div style={{ aspectRatio:'16/9', background:'linear-gradient(120deg,var(--forest-100),var(--parchment-deep))', marginBottom:'1.5rem', position:'relative', overflow:'hidden' }}>
-                      {post.coverImage && <img src={post.coverImage} alt={post.title} style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover' }}/>}
+                      {post.coverImage && <Media src={post.coverImage} alt={post.title} style={{ position:'absolute', inset:0, width:'100%', height:'100%', objectFit:'cover' }}/>}
                     </div>
                     <div className="overline" style={{ marginBottom:'0.5rem' }}>{post.category}</div>
                     <h3 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.4rem', fontWeight:300, color:'var(--forest-800)', lineHeight:1.2, marginBottom:'0.6rem' }}>{post.title}</h3>

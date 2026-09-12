@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { toSlug } from '@/lib/utils'
 import type { PostDoc } from '@/types'
+import ImageUpload from '@/components/ui/ImageUpload'
 
 const CATEGORIES = ['nature','movement','presence','growth','community','immersion']
 
@@ -22,6 +23,7 @@ export default function PostForm({ initial = {}, onSave }: PostFormProps) {
     published: initial.published ?? false,
     coverImage:initial.coverImage?? '',
   })
+  const [coverMode, setCoverMode] = useState<'upload' | 'url'>(form.coverImage ? 'url' : 'upload')
   const [saving, setSaving] = useState(false)
   const [error,  setError]  = useState('')
   const [saved,  setSaved]  = useState(false)
@@ -63,8 +65,31 @@ export default function PostForm({ initial = {}, onSave }: PostFormProps) {
         </div>
       </div>
       <div>
-        <label className="field-label">Cover Image URL <span style={{ fontWeight:400, textTransform:'none', letterSpacing:0, fontSize:'0.65rem', color:'var(--text-ghost)' }}>(optional)</span></label>
-        <input type="url" value={form.coverImage} onChange={e=>set('coverImage',e.target.value)} className="field-input" placeholder="https://..."/>
+        <label className="field-label">Cover Image / Video <span style={{ fontWeight:400, textTransform:'none', letterSpacing:0, fontSize:'0.65rem', color:'var(--text-ghost)' }}>(optional)</span></label>
+        <div style={{ display:'flex', gap:'0', border:'1.5px solid var(--border-strong)', width:'fit-content', marginBottom:'0.9rem' }}>
+          {(['upload','url'] as const).map(m => (
+            <button key={m} type="button" onClick={() => setCoverMode(m)}
+              style={{
+                fontFamily:'Inter,sans-serif', fontSize:'0.62rem', fontWeight:600, letterSpacing:'0.08em', textTransform:'uppercase',
+                padding:'0.5rem 1rem', cursor:'pointer', border:'none',
+                background: coverMode === m ? 'var(--forest-700)' : 'transparent',
+                color: coverMode === m ? 'white' : 'var(--text-muted)',
+              }}>
+              {m === 'upload' ? 'Upload from device' : 'Paste a URL'}
+            </button>
+          ))}
+        </div>
+        {coverMode === 'upload' ? (
+          <ImageUpload
+            value={form.coverImage || null}
+            onChange={url => set('coverImage', url)}
+            aspectRatio="16/9"
+            label="Upload Cover Image or Video"
+            style={{ maxWidth: '360px' }}
+          />
+        ) : (
+          <input type="url" value={form.coverImage} onChange={e=>set('coverImage',e.target.value)} className="field-input" placeholder="https://..."/>
+        )}
       </div>
       <div>
         <label className="field-label">Excerpt * <span style={{ fontWeight:400, textTransform:'none', letterSpacing:0, fontSize:'0.65rem', color:'var(--text-ghost)' }}>— 2–3 sentences shown on the journal listing</span></label>

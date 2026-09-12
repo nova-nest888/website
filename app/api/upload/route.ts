@@ -18,7 +18,8 @@ function configureCloudinary() {
   cloudinary.config({ cloud_name, api_key, api_secret })
 }
 
-const MAX_BYTES = 10 * 1024 * 1024 // 10MB
+const MAX_IMAGE_BYTES = 10 * 1024 * 1024   // 10MB
+const MAX_VIDEO_BYTES = 100 * 1024 * 1024  // 100MB
 
 // POST /api/upload — admin only. Receives a file, uploads it to Cloudinary
 // server-side (using the API secret, which never reaches the browser), returns
@@ -40,21 +41,32 @@ export async function POST(req: NextRequest) {
   const file = form?.get('file')
   if (!file || !(file instanceof File)) return apiError('No file provided')
 
-  if (!file.type.startsWith('image/')) return apiError('Please choose an image file.')
-  if (file.size > MAX_BYTES) return apiError('Image is larger than 10MB — please choose a smaller file.')
+  const isVideo = file.type.startsWith('video/')
+  const isImage = file.type.startsWith('image/')
+  if (!isVideo && !isImage) return apiError('Please choose an image or video file.')
+  if (isImage && file.size > MAX_IMAGE_BYTES) return apiError('Image is larger than 10MB — please choose a smaller file.')
+  if (isVideo && file.size > MAX_VIDEO_BYTES) return apiError('Video is larger than 100MB — please choose a smaller file.')
 
   const folder = (form?.get('folder') as string) || 'novanest'
   const bytes  = Buffer.from(await file.arrayBuffer())
 
   try {
     const result = await new Promise<any>((resolve, reject) => {
-      const stream = cloudinary.uploader.upload_stream({ folder }, (err, res) => {
-        if (err || !res) reject(err ?? new Error('Upload failed'))
-        else resolve(res)
-      })
+      const stream = cloudinary.uploader.upload_stream(
+        { folder, resource_type: isVideo ? 'video' : 'image' },
+        (err, res) => {
+          if (err || !res) reject(err ?? new Error('Upload failed'))
+          else resolve(res)
+        }
+      )
       stream.end(bytes)
     })
-    return apiSuccess({ url: result.secure_url as string, width: result.width, height: result.height })
+    return apiSuccess({
+      url: result.secure_url as string,
+      width: result.width,
+      height: result.height,
+      resourceType: isVideo ? 'video' : 'image',
+    })
   } catch (err) {
     return apiError(err instanceof Error ? err.message : 'Upload failed — please try again.', 500)
   }

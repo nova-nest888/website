@@ -6,6 +6,7 @@ import { Post }      from '@/lib/models/Post'
 import { serialize, formatDate } from '@/lib/utils'
 import type { PostDoc } from '@/types'
 import { JOURNAL_PLACEHOLDERS } from '@/lib/journalPlaceholders'
+import Media from '@/components/ui/Media'
 
 export const dynamic = 'force-dynamic'
 
@@ -57,7 +58,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         </div>
       </section>
 
-      {post.coverImage && <div style={{ height:'380px', overflow:'hidden' }}><img src={post.coverImage} alt={post.title} style={{ width:'100%', height:'100%', objectFit:'cover' }}/></div>}
+      {post.coverImage && <div style={{ height:'380px', overflow:'hidden' }}><Media src={post.coverImage} alt={post.title} style={{ width:'100%', height:'100%', objectFit:'cover' }}/></div>}
 
       <article style={{ background:'var(--parchment)', padding:'5rem 0' }}>
         <div className="container" style={{ maxWidth:'720px' }}>

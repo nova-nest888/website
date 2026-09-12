@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Footer() {
   return (
@@ -7,7 +8,10 @@ export default function Footer() {
       <div className="container">
         <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(190px,1fr))', gap:'3rem', marginBottom:'4rem' }}>
           <div>
-            <div style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.8rem', fontWeight:300, color:'var(--parchment)', marginBottom:'0.2rem' }}>Nova<em>Nest</em></div>
+            <div style={{ display:'flex', alignItems:'center', gap:'0.6rem', marginBottom:'0.2rem' }}>
+              <Image src="/images/logo-mark-light.png" alt="" width={30} height={30} style={{ height:'1.9rem', width:'auto' }}/>
+              <div style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.8rem', fontWeight:300, color:'var(--parchment)' }}>Nova<em>Nest</em></div>
+            </div>
             <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.52rem', letterSpacing:'0.26em', textTransform:'uppercase', color:'var(--gold-light)', marginBottom:'1.5rem' }}>A New Way of Living</div>
             <p style={{ color:'rgba(168,192,158,0.6)', fontSize:'0.88rem', lineHeight:1.8, maxWidth:'260px' }}>
               A community-driven experience company for people who'd rather laugh their way to clarity than sit through another lecture.

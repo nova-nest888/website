@@ -4,7 +4,34 @@ import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import RevealWrapper from '@/components/ui/RevealWrapper'
 import ImageUpload from '@/components/ui/ImageUpload'
+import Media from '@/components/ui/Media'
 import { saveSiteImage } from '@/lib/saveSiteImage'
+
+// People don't think in categories, they think in what they're craving.
+// This groups the same offerings by feeling instead of by activity type,
+// as a way in for anyone who lands here without a clue where to start.
+const FEELINGS = [
+  {
+    prompt: 'I want to slow down',
+    items: ['Nature Experiences', 'Sound Healing', 'Breathwork'],
+  },
+  {
+    prompt: 'I want to meet new people',
+    items: ['Weekly Gatherings', 'Community Circles', 'Saturday Events'],
+  },
+  {
+    prompt: 'I want to move my body',
+    items: ['Somatic Movement', 'Dance', 'Hiking / Adventure'],
+  },
+  {
+    prompt: 'I want to reconnect with my team',
+    items: ['Team Retreats', 'Leadership Workshops / Team Building with NLP strategies', 'Customized Experiences'],
+  },
+  {
+    prompt: 'I want to grow',
+    items: ['Neuroscience Workshops', 'Reflection Sessions', 'Creative Workshops'],
+  },
+]
 
 const OFFERINGS = [
   {
@@ -94,6 +121,38 @@ export default function OfferingsClient({ siteImages }: { siteImages: Record<str
         </div>
       </section>
 
+      {/* Not sure where to begin — organized by feeling, not activity type */}
+      <section style={{ background:'var(--parchment-mid)', padding:'6rem 0' }}>
+        <div className="container">
+          <RevealWrapper>
+            <div style={{ marginBottom:'3.5rem', maxWidth:'560px' }}>
+              <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.6rem', fontWeight:600, letterSpacing:'0.2em', textTransform:'uppercase', color:'var(--text-ghost)', marginBottom:'1rem' }}>
+                Not sure where to begin?
+              </div>
+              <h2 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'clamp(1.8rem,3.5vw,2.6rem)', fontWeight:300, color:'var(--forest-800)', lineHeight:1.2 }}>
+                Start with how you want to feel.
+              </h2>
+            </div>
+          </RevealWrapper>
+          <div className="nn-rg3" style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:'2px' }}>
+            {FEELINGS.map((f, i) => (
+              <RevealWrapper key={f.prompt} delay={i*60}>
+                <div style={{ background:'var(--parchment)', padding:'2.2rem', height:'100%' }}>
+                  <div style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.3rem', fontWeight:300, fontStyle:'italic', color:'var(--forest-700)', marginBottom:'1.2rem', lineHeight:1.3 }}>
+                    {f.prompt}
+                  </div>
+                  {f.items.map(item => (
+                    <div key={item} style={{ fontFamily:'Inter,sans-serif', fontSize:'0.85rem', color:'var(--text-body)', lineHeight:1.6, paddingLeft:'0.9rem', borderLeft:'2px solid var(--border)', marginBottom:'0.55rem' }}>
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </RevealWrapper>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Offerings — alternating layout, not a grid of identical cards */}
       <section style={{ background:'var(--parchment)' }}>
         {OFFERINGS.map((o, i) => (
@@ -116,7 +175,7 @@ export default function OfferingsClient({ siteImages }: { siteImages: Record<str
                   />
                 ) : (
                   images[o.slug]
-                    ? <img src={images[o.slug]} alt={o.title} style={{ width:'100%', height:'100%', objectFit:'cover', display:'block' }}/>
+                    ? <Media src={images[o.slug]} alt={o.title} style={{ width:'100%', height:'100%', objectFit:'cover', display:'block' }}/>
                     : <div style={{ height:'100%', minHeight:'340px', background:'var(--parchment-deep)' }}/>
                 )}
               </div>

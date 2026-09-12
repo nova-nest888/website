@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import RevealWrapper from '@/components/ui/RevealWrapper'
+import Media from '@/components/ui/Media'
 import type { TestimonialDoc } from '@/types'
 import { uploadToCloudinary } from '@/lib/cloudinary'
 import { saveSiteImage } from '@/lib/saveSiteImage'
@@ -15,8 +16,9 @@ const FALLBACK_TESTIMONIALS = [
 
 // Shown until an admin uploads a real photo from a NovaNest gathering.
 // Verified working, free-to-use, no attribution required (Unsplash License).
-// Green forest tones so it blends with the dark overlay rather than fighting it.
-const DEFAULT_HERO_IMAGE = 'https://images.unsplash.com/photo-1520274908385-1f57e1bd43b5?fm=jpg&q=80&w=2400&auto=format&fit=crop'
+// A group of friends outdoors at golden hour — closer to the "strangers become
+// community" feeling of NovaNest than an empty landscape shot.
+const DEFAULT_HERO_IMAGE = 'https://images.unsplash.com/photo-1548939201-7aabcd8f9566?fm=jpg&q=80&w=2400&auto=format&fit=crop'
 
 export default function HomeClient({ testimonials, siteImages }: { testimonials: TestimonialDoc[]; siteImages: Record<string, string> }) {
   const [heroImg, setHeroImg]   = useState<string | null>(siteImages['hero'] ?? DEFAULT_HERO_IMAGE)
@@ -52,7 +54,7 @@ export default function HomeClient({ testimonials, siteImages }: { testimonials:
       <section style={{ minHeight:'100vh', background:'var(--forest-900)', position:'relative', display:'flex', alignItems:'center', overflow:'hidden' }}>
         <div style={{ position:'absolute', inset:0 }}>
           {heroImg
-            ? <img src={heroImg} alt="" style={{ width:'100%', height:'100%', objectFit:'cover', mixBlendMode:'luminosity', opacity:0.55 }} onError={() => setHeroImg(null)}/>
+            ? <Media src={heroImg} alt="" style={{ width:'100%', height:'100%', objectFit:'cover', mixBlendMode:'luminosity', opacity:0.55 }} onError={() => setHeroImg(null)}/>
             : (
               <svg style={{ width:'100%', height:'100%', position:'absolute' }} viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
                 <defs>
@@ -77,8 +79,8 @@ export default function HomeClient({ testimonials, siteImages }: { testimonials:
         {isAdmin && (
           <div style={{ position:'absolute', top:'5.5rem', right:'2rem', zIndex:10, display:'flex', flexDirection:'column', alignItems:'flex-end', gap:'0.4rem' }}>
             <label style={{ background:'rgba(28,43,26,0.55)', backdropFilter:'blur(8px)', border:'1px solid rgba(200,217,195,0.2)', color:'rgba(200,217,195,0.65)', fontFamily:'Inter,sans-serif', fontSize:'0.58rem', fontWeight:600, letterSpacing:'0.14em', textTransform:'uppercase', padding:'0.45rem 0.85rem', cursor: uploading ? 'default' : 'pointer', display:'flex', alignItems:'center', gap:'0.4rem', opacity: uploading ? 0.6 : 1 }}>
-              <input type="file" accept="image/*" style={{ display:'none' }} onChange={handleHeroFile} disabled={uploading}/>
-              {uploading ? 'Uploading…' : '↑ Change Hero Image'}
+              <input type="file" accept="image/*,video/*" style={{ display:'none' }} onChange={handleHeroFile} disabled={uploading}/>
+              {uploading ? 'Uploading…' : '↑ Change Hero Image/Video'}
             </label>
             {uploadError && (
               <div style={{ maxWidth:'220px', background:'rgba(192,57,43,0.85)', color:'white', fontFamily:'Inter,sans-serif', fontSize:'0.62rem', padding:'0.5rem 0.7rem', lineHeight:1.5 }}>
@@ -95,10 +97,10 @@ export default function HomeClient({ testimonials, siteImages }: { testimonials:
               What if clarity lives<br/>somewhere between<br/><em style={{ color:'var(--forest-200)' }}>laughter and nature?</em>
             </h1>
             <p style={{ color:'rgba(200,217,195,0.72)', fontSize:'1.08rem', lineHeight:1.8, maxWidth:'500px', marginBottom:'2.8rem', fontFamily:'Inter,sans-serif', animation:'fadeUp 0.8s 0.2s ease both' }}>
-              NovaNest is a community-driven experience company — weekly gatherings, outdoor adventures, creative workshops, and retreats for people who think growth shouldn't feel like homework.
+              NovaNest is a community-driven experience company — weekly gatherings, outdoor adventures, creative workshops, and retreats for people who believe growth shouldn't feel like homework.
             </p>
             <div style={{ display:'flex', gap:'1rem', flexWrap:'wrap', animation:'fadeUp 0.8s 0.3s ease both' }}>
-              <Link href="/book" className="btn btn-parchment">Join an Experience</Link>
+              <Link href="/book" className="btn btn-parchment">Find Your Experience</Link>
               <Link href="/offerings" className="btn btn-light">See What We Do</Link>
             </div>
           </div>
@@ -119,11 +121,8 @@ export default function HomeClient({ testimonials, siteImages }: { testimonials:
               <p style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'clamp(1.5rem,3vw,2.2rem)', fontWeight:300, color:'var(--forest-700)', lineHeight:1.5, marginBottom:'2rem', fontStyle:'italic' }}>
                 "Growth doesn't have to be serious."
               </p>
-              <p style={{ marginBottom:'1.2rem', fontSize:'1rem' }}>
-                That's the whole idea behind NovaNest. We're not a wellness brand and we're definitely not a retreat centre with a strict schedule and a bell you have to sit still for. We're a community that gathers — in forests, on hikes, in living rooms turned dance floors — because we think people find themselves faster in motion than in silence.
-              </p>
-              <p style={{ marginBottom:'2.5rem', color:'var(--text-muted)', fontSize:'0.95rem', lineHeight:1.85 }}>
-                Most people who show up to a NovaNest gathering aren't in crisis. They're just tired — of routine, of small talk that goes nowhere, of being told that becoming a better version of yourself has to hurt a little first. So we built something that doesn't ask you to hurt first.
+              <p style={{ marginBottom:'2.5rem', fontSize:'1rem' }}>
+                NovaNest is a community-driven experience company creating playful indoor and outdoor experiences that bring people closer to themselves, to others, and to nature. From weekly gatherings and hikes to neuroscience workshops and immersive retreats, we create experiences that replace routine with curiosity, pressure with play, and small talk with genuine connection — helping people leave feeling lighter, clearer, and more alive.
               </p>
               <Link href="/about" className="btn btn-outline">Read our story</Link>
             </RevealWrapper>
@@ -131,22 +130,28 @@ export default function HomeClient({ testimonials, siteImages }: { testimonials:
             {/* Right column — deliberate uneven list, not 4 perfect items */}
             <RevealWrapper delay={140}>
               <div style={{ paddingTop:'1rem' }}>
-                <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.62rem', fontWeight:600, letterSpacing:'0.2em', textTransform:'uppercase', color:'var(--text-ghost)', marginBottom:'2rem' }}>
-                  What actually happens here
+                <div style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.4rem', fontWeight:300, fontStyle:'italic', color:'var(--forest-700)', marginBottom:'2rem', lineHeight:1.3 }}>
+                  Here's what surprises most people.
                 </div>
                 {[
-                  { heading:'You show up a stranger, you leave with someone\'s number.', body:'Most people arrive knowing exactly one person, or nobody. By the end of a hike or a Friday circle, that\'s rarely still true.' },
-                  { heading:'You get outside without it being a whole production.', body:'No 10-day silent retreat required. Just a trail, a fire, a Sunday morning — done with other people instead of alone.' },
-                  { heading:'You learn something real about yourself, minus the whiteboard.', body:'Our workshops borrow from actual psychology and neuroscience, but they\'re built around doing things, not sitting through slides about them.' },
-                  { heading:'You laugh more than you planned to.', body:'That\'s not a side effect — it\'s kind of the point. Some of the clearest thinking happens mid-laugh, not mid-lecture.' },
+                  { tag:'Arrival', heading:'You arrive wondering if you\'ll fit in.', body:'Most people come alone — or know just one person. Somewhere between the trail, the tea, and the conversations, strangers quietly become familiar.' },
+                  { tag:'Phone', heading:'You forget your phone exists.', body:'Not because anyone asks you to put it away. Because the people, the place, and the moment become more interesting than your screen.' },
+                  { tag:'Self Discovery', heading:'You discover things about yourself by doing, not just thinking.', body:'Whether you\'re moving, creating, or simply being present, the insights tend to arrive when you\'re not chasing them.' },
+                  { tag:'Leaving', heading:'You leave lighter than you arrived.', body:'Sometimes it\'s a new friend. Sometimes it\'s a fresh perspective. Sometimes it\'s simply remembering how good it feels to be yourself.' },
                 ].map((item, i) => (
                   <div key={i} style={{ marginBottom:'2rem', paddingBottom:'2rem', borderBottom: i < 3 ? '1px solid var(--border)' : 'none' }}>
+                    <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.62rem', fontWeight:600, letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--gold-dark)', marginBottom:'0.5rem' }}>
+                      {item.tag}
+                    </div>
                     <div style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.15rem', fontWeight:400, color:'var(--forest-700)', marginBottom:'0.4rem', lineHeight:1.3 }}>
                       {item.heading}
                     </div>
                     <p style={{ fontSize:'0.87rem', color:'var(--text-muted)', margin:0, lineHeight:1.75 }}>{item.body}</p>
                   </div>
                 ))}
+                <p style={{ fontFamily:'Inter,sans-serif', fontSize:'0.75rem', fontStyle:'italic', color:'var(--text-ghost)', lineHeight:1.7, marginTop:'0.5rem' }}>
+                  No two NovaNest experiences are exactly the same. But these are the moments people talk about long after they're over.
+                </p>
               </div>
             </RevealWrapper>
           </div>

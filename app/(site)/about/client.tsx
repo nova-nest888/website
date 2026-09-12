@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import RevealWrapper from '@/components/ui/RevealWrapper'
 import ImageUpload from '@/components/ui/ImageUpload'
+import Media from '@/components/ui/Media'
 import { saveSiteImage } from '@/lib/saveSiteImage'
 
 export default function AboutClient({ siteImages }: { siteImages: Record<string, string> }) {
@@ -48,19 +49,72 @@ export default function AboutClient({ siteImages }: { siteImages: Record<string,
                 <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.6rem', fontWeight:600, letterSpacing:'0.2em', textTransform:'uppercase', color:'var(--text-ghost)', marginBottom:'0.5rem' }}>
                   Our story
                 </div>
-                <p style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.5rem', fontWeight:300, color:'var(--forest-700)', lineHeight:1.5, marginBottom:'2rem', fontStyle:'italic' }}>
+                <p style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.5rem', fontWeight:300, color:'var(--forest-700)', lineHeight:1.5, marginBottom:'3rem', fontStyle:'italic' }}>
                   "What if clarity lives somewhere between laughter, connection, and nature?"
                 </p>
-                <p style={{ fontSize:'0.97rem', lineHeight:1.9, marginBottom:'1.5rem' }}>
-                  NovaNest started as nothing official — a handful of friends who were burnt out on the same things: back-to-back meetings, feeds that made everyone feel worse, and the quiet loneliness of being "fine" all the time. One of us suggested a Saturday hike instead of another brunch where nobody says anything real. Eleven people showed up. Something about being outside, moving, without an agenda, made people actually talk to each other.
-                </p>
-                <p style={{ fontSize:'0.97rem', lineHeight:1.9, marginBottom:'1.5rem', color:'var(--text-body)' }}>
-                  We kept doing it. A hike became a Tuesday circle. A circle became a workshop. A workshop became a retreat somebody's company asked us to run for their whole team. Nobody planned this out on a whiteboard — we just kept saying yes to whatever made people feel more like themselves, and less like they were performing wellness for an audience.
-                </p>
-                <p style={{ fontSize:'0.97rem', lineHeight:1.9, marginBottom:'2.5rem', color:'var(--text-body)' }}>
-                  Today NovaNest is a community-driven experience company, but the instinct hasn't changed: growth doesn't have to be serious to be real. No boring lectures, no pressure to become someone else — just experiences that help people slow down, laugh more, and feel more like themselves.
-                </p>
-                <div style={{ display:'flex', gap:'1rem', flexWrap:'wrap' }}>
+              </RevealWrapper>
+
+              {[
+                {
+                  n:'01', t:'Before NovaNest', kind:'para',
+                  body:"Somewhere along the way, life became efficient. Our calendars filled up, and our conversations became shorter. Weekends became time to recover instead of time to explore. We stayed connected through our phones, but slowly felt less connected to ourselves, to nature, and sometimes even to the people sitting beside us.",
+                },
+                {
+                  n:'02', t:'The Question', kind:'para',
+                  body:"We started wondering about something simple. What if people didn't need another course, another productivity hack, or another lecture? What if what they really needed was a different kind of experience?\n\nNovaNest didn't begin with a business plan. It began with curiosity. We kept noticing the same thing in ourselves and the people around us: everyone was looking for connection, but very few knew where to find it. So we started creating the kinds of spaces we wished already existed.",
+                },
+                {
+                  n:'03', t:'Now', kind:'quote',
+                  body:"A backyard. Eleven people. A very ordinary Tuesday.\nI wouldn't change a single word.",
+                },
+                {
+                  n:'04', t:'What We Discovered', kind:'para',
+                  body:"We discovered something unexpected. People didn't leave talking about the activities. They left talking about each other. The conversations. The laughter. The feeling. The ideas they hadn't thought about in years. Somewhere between movement and nature, people seemed to become more themselves.",
+                },
+                {
+                  n:'05', t:'', kind:'quote',
+                  body:"That's how NovaNest quietly came to life.",
+                },
+                {
+                  n:'06', t:'Our Philosophy', kind:'quote',
+                  body:"We believe people find themselves faster in motion than in silence.",
+                },
+                {
+                  n:'07', t:'So What Is NovaNest Today?', kind:'para',
+                  body:"Today, NovaNest creates experiences that bring people closer to themselves, to others, and to nature.",
+                },
+              ].map((ch, i) => (
+                <RevealWrapper key={ch.n} delay={i*40}>
+                  <div style={{ marginBottom:'2.2rem', paddingBottom:'2.2rem', borderBottom: i < 6 ? '1px solid var(--border)' : 'none' }}>
+                    <div style={{ display:'flex', gap:'1.4rem', alignItems:'baseline' }}>
+                      <div style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1rem', fontStyle:'italic', color:'var(--gold)', flexShrink:0 }}>{ch.n}</div>
+                      <div style={{ flex:1 }}>
+                        {ch.t && (
+                          <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.68rem', fontWeight:600, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--forest-500)', marginBottom:'0.7rem' }}>
+                            {ch.t}
+                          </div>
+                        )}
+                        {ch.kind === 'quote' ? (
+                          ch.body.split('\n').map((line, li) => (
+                            <p key={li} style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.35rem', fontWeight:300, fontStyle:'italic', color:'var(--forest-700)', lineHeight:1.5, marginBottom: li < ch.body.split('\n').length-1 ? '0.3rem' : 0 }}>
+                              {line}
+                            </p>
+                          ))
+                        ) : (
+                          ch.body.split('\n\n').map((para, pi) => (
+                            <p key={pi} style={{ fontSize:'0.97rem', lineHeight:1.9, color:'var(--text-body)', marginBottom: pi < ch.body.split('\n\n').length-1 ? '1.2rem' : 0 }}>
+                              {para}
+                            </p>
+                          ))
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </RevealWrapper>
+              ))}
+
+              <RevealWrapper delay={280}>
+                <div style={{ display:'flex', gap:'1rem', flexWrap:'wrap', marginTop:'1rem' }}>
                   <Link href="/book" className="btn btn-forest">Join an experience</Link>
                   <Link href="/contact" className="btn btn-outline">Say hi</Link>
                 </div>
@@ -79,7 +133,7 @@ export default function AboutClient({ siteImages }: { siteImages: Record<string,
                   />
                 ) : (
                   portrait
-                    ? <img src={portrait} alt="Portrait" style={{ width:'100%', aspectRatio:'3/4', objectFit:'cover', display:'block' }}/>
+                    ? <Media src={portrait} alt="Portrait" style={{ width:'100%', aspectRatio:'3/4', objectFit:'cover', display:'block' }}/>
                     : (
                       <div style={{ aspectRatio:'3/4', background:'linear-gradient(160deg,var(--parchment-deep),var(--forest-100))', display:'flex', alignItems:'center', justifyContent:'center' }}>
                         <div style={{ textAlign:'center', padding:'2rem' }}>

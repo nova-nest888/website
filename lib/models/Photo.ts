@@ -2,6 +2,7 @@ import mongoose, { Schema, Document, Model } from 'mongoose'
 
 export interface IPhoto extends Document {
   url:       string
+  mediaType: 'image' | 'video'
   caption?:  string
   category:  string
   order:     number
@@ -13,6 +14,7 @@ export interface IPhoto extends Document {
 const PhotoSchema = new Schema<IPhoto>(
   {
     url:      { type: String, required: true, trim: true },
+    mediaType:{ type: String, default: 'image', enum: ['image','video'] },
     caption:  { type: String, trim: true },
     category: { type: String, default: 'general', enum: ['general','nature','movement','presence','growth','community','immersion'] },
     order:    { type: Number, default: 0 },

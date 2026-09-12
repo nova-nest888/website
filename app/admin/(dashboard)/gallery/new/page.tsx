@@ -2,6 +2,8 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import ImageUpload from '@/components/ui/ImageUpload'
+import Media from '@/components/ui/Media'
+import { isVideoUrl } from '@/lib/cloudinary'
 
 const CATEGORIES = ['general','nature','movement','presence','growth','community','immersion']
 
@@ -19,13 +21,13 @@ export default function NewPhoto() {
   }
 
   const submit = async () => {
-    if (!form.url) { setError(mode === 'upload' ? 'Upload a photo first.' : 'Image URL is required.'); return }
+    if (!form.url) { setError(mode === 'upload' ? 'Upload a photo or video first.' : 'Media URL is required.'); return }
     setSaving(true); setError('')
     try {
       const res = await fetch('/api/photos', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, order: Number(form.order) }),
+        body: JSON.stringify({ ...form, mediaType: isVideoUrl(form.url) ? 'video' : 'image', order: Number(form.order) }),
       })
       const json = await res.json()
       if (!res.ok) throw new Error(json.error ?? 'Failed')
@@ -39,7 +41,7 @@ export default function NewPhoto() {
     <div style={{ maxWidth: 640 }}>
       <div style={{ display:'flex', alignItems:'center', gap:'1rem', marginBottom:'2.5rem' }}>
         <button onClick={() => router.back()} style={{ background:'none', border:'none', cursor:'pointer', fontFamily:'Inter,sans-serif', fontSize:'0.65rem', fontWeight:500, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--forest-500)', padding:0 }}>← Back</button>
-        <h1 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'2rem', fontWeight:300, color:'var(--forest-800)' }}>Add Photo</h1>
+        <h1 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'2rem', fontWeight:300, color:'var(--forest-800)' }}>Add Photo or Video</h1>
       </div>
 
       <div style={{ background:'white', padding:'2.5rem', display:'flex', flexDirection:'column', gap:'1.5rem' }}>
@@ -60,36 +62,34 @@ export default function NewPhoto() {
 
         {mode === 'upload' ? (
           <div>
-            <label className="field-label">Photo *</label>
+            <label className="field-label">Photo or Video *</label>
             <ImageUpload
               value={form.url || null}
               onChange={url => set('url', url)}
               aspectRatio="4/3"
-              label="Upload Photo"
+              label="Upload Photo or Video"
               style={{ maxWidth: '320px' }}
             />
           </div>
         ) : (
           <div>
-            <label className="field-label">Image URL *</label>
+            <label className="field-label">Media URL *</label>
             <input type="text" value={form.url} onChange={e => set('url', e.target.value)} className="field-input" placeholder="https://..."/>
             <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.62rem', color:'var(--text-ghost)', marginTop:'0.3rem' }}>
-              Paste a link to an image that's already hosted somewhere (Unsplash, another site, etc).
+              Paste a link to an image or video that's already hosted somewhere (Unsplash, Cloudinary, another site, etc).
             </div>
             {form.url && (
               <div style={{ marginTop:'1rem', aspectRatio:'4/3', maxWidth:'320px', background:'var(--parchment-mid)', overflow:'hidden' }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={form.url} alt=""
+                <Media
+                  src={form.url}
                   style={{ width:'100%', height:'100%', objectFit:'cover', display:'block' }}
-                  onLoad={() => setImgOk(true)}
                   onError={() => setImgOk(false)}
                 />
               </div>
             )}
             {imgOk === false && (
               <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.7rem', color:'#c0392b', marginTop:'0.5rem' }}>
-                Couldn't load that URL — double-check it's a direct link to an image.
+                Couldn't load that URL — double-check it's a direct link to a media file.
               </div>
             )}
           </div>

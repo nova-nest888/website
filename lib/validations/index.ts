@@ -57,7 +57,8 @@ export const testimonialSchema = z.object({
 
 // ─── Photo (gallery) ─────────────────────────────────────────────────────────────
 export const photoSchema = z.object({
-  url:      z.string().url('Must be a valid image URL'),
+  url:      z.string().url('Must be a valid image or video URL'),
+  mediaType: z.enum(['image','video']).default('image'),
   caption:  z.string().max(200).optional(),
   category: z.enum(['general','nature','movement','presence','growth','community','immersion']).default('general'),
   order:    z.number().default(0),

@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const LINKS = [
   { href: '/offerings', label: 'Experiences' },
@@ -31,12 +32,22 @@ export default function Nav() {
         borderBottom: scrolled ? '1px solid rgba(61,82,50,0.1)' : 'none',
         transition: 'all 0.35s ease',
       }}>
-        <Link href="/" style={{ textDecoration: 'none' }}>
-          <div style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '1.45rem', fontWeight: 300, letterSpacing: '-0.01em', color: scrolled ? 'var(--forest-800)' : 'var(--parchment)', transition: 'color 0.35s ease' }}>
-            Nova<em>Nest</em>
-          </div>
-          <div style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.48rem', letterSpacing: '0.26em', textTransform: 'uppercase', color: scrolled ? 'var(--gold)' : 'rgba(200,217,195,0.7)', marginTop: '1px', transition: 'color 0.35s ease' }}>
-            A New Way of Living
+        <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+          <Image
+            src={scrolled ? '/images/logo-mark.png' : '/images/logo-mark-light.png'}
+            alt="NovaNest"
+            width={36}
+            height={36}
+            priority
+            style={{ height: scrolled ? '2.1rem' : '2.35rem', width: 'auto', transition: 'height 0.35s ease' }}
+          />
+          <div>
+            <div style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: '1.45rem', fontWeight: 300, letterSpacing: '-0.01em', color: scrolled ? 'var(--forest-800)' : 'var(--parchment)', transition: 'color 0.35s ease' }}>
+              Nova<em>Nest</em>
+            </div>
+            <div style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.48rem', letterSpacing: '0.26em', textTransform: 'uppercase', color: scrolled ? 'var(--gold)' : 'rgba(200,217,195,0.7)', marginTop: '1px', transition: 'color 0.35s ease' }}>
+              A New Way of Living
+            </div>
           </div>
         </Link>
 
@@ -72,6 +83,7 @@ export default function Nav() {
 
       {open && (
         <div style={{ position:'fixed', inset:0, zIndex:199, background:'var(--forest-900)', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:'2rem' }}>
+          <Image src="/images/logo-mark-light.png" alt="NovaNest" width={44} height={44} style={{ height:'2.75rem', width:'auto', marginBottom:'0.5rem' }}/>
           {[...LINKS, { href:'/book', label:'Book an Experience' }].map(l => (
             <Link key={l.href} href={l.href} onClick={() => setOpen(false)} style={{ fontFamily:"'Cormorant Garamond', Georgia, serif", fontSize:'2.5rem', fontWeight:300, color:'var(--parchment)', textDecoration:'none' }}>{l.label}</Link>
           ))}

@@ -3,6 +3,7 @@ import { connectDB } from '@/lib/mongoose'
 import { Photo }     from '@/lib/models/Photo'
 import { serialize } from '@/lib/utils'
 import type { PhotoDoc } from '@/types'
+import Media from '@/components/ui/Media'
 
 export const metadata: Metadata = { title: 'Gallery' }
 export const revalidate = 3600
@@ -55,7 +56,7 @@ export default async function GalleryPage() {
                   className="nn-gallery-item"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={p.url} alt={p.caption ?? ''} loading="lazy" />
+                  <Media src={p.url} alt={p.caption ?? ''} />
                   {p.caption && <span className="nn-gallery-caption">{p.caption}</span>}
                 </a>
               ))}
@@ -77,12 +78,12 @@ export default async function GalleryPage() {
           overflow: hidden;
           text-decoration: none;
         }
-        .nn-gallery-item img {
+        .nn-gallery-item img, .nn-gallery-item video {
           width: 100%;
           display: block;
           transition: transform 0.5s ease;
         }
-        .nn-gallery-item:hover img { transform: scale(1.04); }
+        .nn-gallery-item:hover img, .nn-gallery-item:hover video { transform: scale(1.04); }
         .nn-gallery-caption {
           position: absolute;
           left: 0; right: 0; bottom: 0;

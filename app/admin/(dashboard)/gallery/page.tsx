@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import type { PhotoDoc } from '@/types'
+import Media from '@/components/ui/Media'
 
 export default function AdminGallery() {
   const [items, setItems]     = useState<PhotoDoc[]>([])
@@ -57,13 +58,15 @@ export default function AdminGallery() {
           {items.map(p => (
             <div key={p.id} style={{ background:'white', borderLeft:`3px solid ${p.isActive ? 'var(--gold)' : 'var(--border-strong)'}`, opacity: p.isActive ? 1 : 0.5 }}>
               <div style={{ aspectRatio:'4/3', background:'var(--parchment-mid)', overflow:'hidden' }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={p.url} alt={p.caption ?? ''} style={{ width:'100%', height:'100%', objectFit:'cover', display:'block' }}
-                  onError={e => { (e.currentTarget as HTMLImageElement).style.opacity = '0.15' }}
+                <Media src={p.url} alt={p.caption ?? ''} style={{ width:'100%', height:'100%', objectFit:'cover', display:'block' }}
+                  onError={() => {}}
                 />
               </div>
               <div style={{ padding:'0.9rem 1rem' }}>
-                <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.65rem', letterSpacing:'0.08em', textTransform:'uppercase', color:'var(--gold-dark)', marginBottom:'0.3rem' }}>{p.category}</div>
+                <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.65rem', letterSpacing:'0.08em', textTransform:'uppercase', color:'var(--gold-dark)', marginBottom:'0.3rem', display:'flex', gap:'0.5rem', alignItems:'center' }}>
+                  {p.category}
+                  {p.mediaType === 'video' && <span style={{ color:'var(--forest-500)' }}>· Video</span>}
+                </div>
                 {p.caption && <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.78rem', color:'var(--text-body)', marginBottom:'0.7rem', lineHeight:1.5 }}>{p.caption}</div>}
                 <div style={{ display:'flex', gap:'0.5rem' }}>
                   <button onClick={() => toggle(p.id, p.isActive)} style={{ flex:1, fontFamily:'Inter,sans-serif', fontSize:'0.6rem', fontWeight:500, letterSpacing:'0.08em', textTransform:'uppercase', cursor:'pointer', padding:'0.35rem 0.5rem', border:'1.5px solid', borderColor: p.isActive ? 'var(--border-strong)' : 'var(--forest-400)', background:'none', color: p.isActive ? 'var(--text-muted)' : 'var(--forest-600)' }}>

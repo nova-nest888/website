@@ -11,6 +11,7 @@ export interface PhotoDoc {
   _id: string
   id:  string
   url: string
+  mediaType: 'image' | 'video'
   caption?: string
   category: PhotoCategory
   order: number
