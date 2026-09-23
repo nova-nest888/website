@@ -109,7 +109,7 @@ export default function ContactClient() {
                       <label className="field-label">Interested in</label>
                       <select value={form.interest} onChange={e=>set('interest',e.target.value)} className="field-input" style={{ cursor:'pointer' }}>
                         <option value="">Select...</option>
-                        {['Nature Experiences','Movement & Expression','Deep Relaxation & Presence','Growth & Leadership Workshops','Retreats & Immersive Experiences','Corporate / Team Retreat','Just exploring'].map(o=><option key={o}>{o}</option>)}
+                        {['Nature Experiences','Movement & Expression','Sound Healing / Breathwork','Mind, Brain & Behaviour','Retreats / Nepal Experience','Corporate / Team Retreat','Just exploring'].map(o=><option key={o}>{o}</option>)}
                       </select>
                     </div>
                   </div>

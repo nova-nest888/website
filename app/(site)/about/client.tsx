@@ -56,36 +56,33 @@ export default function AboutClient({ siteImages }: { siteImages: Record<string,
 
               {[
                 {
-                  n:'01', t:'Before NovaNest', kind:'para',
-                  body:"Somewhere along the way, life became efficient. Our calendars filled up, and our conversations became shorter. Weekends became time to recover instead of time to explore. We stayed connected through our phones, but slowly felt less connected to ourselves, to nature, and sometimes even to the people sitting beside us.",
+                  n:'01', t:'Before NovaNest', hook:'Somewhere along the way, life got busy.', kind:'para',
+                  body:"Calendars filled up. Weekends became recovery time. We stayed connected online, but often felt disconnected from ourselves, nature, and each other.",
                 },
                 {
-                  n:'02', t:'The Question', kind:'para',
-                  body:"We started wondering about something simple. What if people didn't need another course, another productivity hack, or another lecture? What if what they really needed was a different kind of experience?\n\nNovaNest didn't begin with a business plan. It began with curiosity. We kept noticing the same thing in ourselves and the people around us: everyone was looking for connection, but very few knew where to find it. So we started creating the kinds of spaces we wished already existed.",
+                  n:'02', t:'The Question', hook:'What if growth could feel different?', kind:'para',
+                  body:"Maybe people didn't need another lecture, course, or productivity hack. Maybe they simply needed a different kind of experience.\n\nSo we started creating the spaces we wished existed.",
                 },
                 {
-                  n:'03', t:'Now', kind:'quote',
-                  body:"A backyard. Eleven people. A very ordinary Tuesday.\nI wouldn't change a single word.",
+                  n:'03', t:'We Started Experimenting', hook:'Nature. Movement. Conversations. Music. Stillness. Play.', kind:'para',
+                  body:"We brought different things together and watched what happened when people had the space to simply be, explore, and connect.",
                 },
                 {
-                  n:'04', t:'What We Discovered', kind:'para',
-                  body:"We discovered something unexpected. People didn't leave talking about the activities. They left talking about each other. The conversations. The laughter. The feeling. The ideas they hadn't thought about in years. Somewhere between movement and nature, people seemed to become more themselves.",
+                  n:'04', t:'What We Discovered', hook:'It was never really about the activity.', kind:'para',
+                  body:"People remembered the laughter. The unexpected conversations. The feeling of being themselves.\n\nSomething shifted when people moved, explored, created, and connected together.",
                 },
                 {
-                  n:'05', t:'', kind:'quote',
-                  body:"That's how NovaNest quietly came to life.",
+                  n:'05', t:'And Then, NovaNest', hook:"That's how NovaNest came to life.", kind:'quote',
+                  body:"Not as a retreat centre.\nNot as another wellness program.",
+                  emphasis:"But as a new way of experiencing growth, connection, and life.",
                 },
                 {
-                  n:'06', t:'Our Philosophy', kind:'quote',
-                  body:"We believe people find themselves faster in motion than in silence.",
-                },
-                {
-                  n:'07', t:'So What Is NovaNest Today?', kind:'para',
-                  body:"Today, NovaNest creates experiences that bring people closer to themselves, to others, and to nature.",
+                  n:'06', t:'Our Philosophy', hook:"Growth doesn't have to be serious.", kind:'para',
+                  body:"We believe people can learn, grow, reconnect, and discover something new about themselves.",
                 },
               ].map((ch, i) => (
                 <RevealWrapper key={ch.n} delay={i*40}>
-                  <div style={{ marginBottom:'2.2rem', paddingBottom:'2.2rem', borderBottom: i < 6 ? '1px solid var(--border)' : 'none' }}>
+                  <div style={{ marginBottom:'2.2rem', paddingBottom:'2.2rem', borderBottom: i < 5 ? '1px solid var(--border)' : 'none' }}>
                     <div style={{ display:'flex', gap:'1.4rem', alignItems:'baseline' }}>
                       <div style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1rem', fontStyle:'italic', color:'var(--gold)', flexShrink:0 }}>{ch.n}</div>
                       <div style={{ flex:1 }}>
@@ -93,6 +90,11 @@ export default function AboutClient({ siteImages }: { siteImages: Record<string,
                           <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.68rem', fontWeight:600, letterSpacing:'0.14em', textTransform:'uppercase', color:'var(--forest-500)', marginBottom:'0.7rem' }}>
                             {ch.t}
                           </div>
+                        )}
+                        {'hook' in ch && ch.hook && (
+                          <p style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.2rem', fontWeight:400, color:'var(--forest-800)', lineHeight:1.4, marginBottom:'0.8rem' }}>
+                            {ch.hook}
+                          </p>
                         )}
                         {ch.kind === 'quote' ? (
                           ch.body.split('\n').map((line, li) => (
@@ -106,6 +108,11 @@ export default function AboutClient({ siteImages }: { siteImages: Record<string,
                               {para}
                             </p>
                           ))
+                        )}
+                        {'emphasis' in ch && ch.emphasis && (
+                          <p style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.15rem', fontWeight:500, fontStyle:'italic', color:'var(--forest-700)', lineHeight:1.5, marginTop:'0.6rem' }}>
+                            {ch.emphasis}
+                          </p>
                         )}
                       </div>
                     </div>

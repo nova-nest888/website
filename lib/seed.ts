@@ -30,7 +30,7 @@ async function seed() {
     { title: 'Movement & Expression Session',  slug: 'movement-expression', category: 'Movement', duration: 75,  price: 0, calSlug: 'movement-expression', description: 'Somatic movement or free-form dance — no steps to learn, no mirrors to check yourself in.' },
     { title: 'Sound Healing Session',          slug: 'sound-healing',      category: 'Presence', duration: 60,  price: 0, calSlug: 'sound-healing',       description: 'Tibetan bowls and crystal frequencies to guide your nervous system into deep rest.' },
     { title: 'Breathwork Session',              slug: 'breathwork',         category: 'Presence', duration: 75,  price: 0, calSlug: 'breathwork',          description: 'Conscious connected breathing to move what\'s stuck and access what\'s below the surface.' },
-    { title: 'Leadership Workshop — Intro',     slug: 'leadership-intro',   category: 'Growth',   duration: 180, price: 0, calSlug: 'leadership-intro',    description: 'Interactive workshop grounded in psychology and neuroscience, built around doing, not slides.' },
+    { title: 'Mind, Brain & Behaviour — 1:1 Session', slug: 'leadership-intro',   category: 'Growth',   duration: 180, price: 0, calSlug: 'leadership-intro',    description: 'A private, practical session using NLP tools, behavioural psychology, and neuroscience-informed approaches to explore patterns in thinking, emotion, attention, communication, and behaviour.' },
     { title: 'Retreat Info Call',               slug: 'retreat-info',       category: 'Immersion',duration: 30,  price: 0, calSlug: 'retreat-info',        description: 'Free 30-min call to find out if a NovaNest retreat is right for you or your team.' },
   ]
 

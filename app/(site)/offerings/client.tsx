@@ -21,68 +21,139 @@ const FEELINGS = [
   },
   {
     prompt: 'I want to move my body',
-    items: ['Somatic Movement', 'Dance', 'Hiking / Adventure'],
+    items: ['Movement & Expression', 'Dance', 'Hiking / Adventure'],
   },
   {
     prompt: 'I want to reconnect with my team',
-    items: ['Team Retreats', 'Leadership Workshops / Team Building with NLP strategies', 'Customized Experiences'],
+    items: ['Team Retreats', 'Mind, Brain & Behaviour — Team & Corporate', 'Customized Experiences'],
   },
   {
     prompt: 'I want to grow',
-    items: ['Neuroscience Workshops', 'Reflection Sessions', 'Creative Workshops'],
+    items: ['Mind, Brain & Behaviour — 1:1 Sessions', 'Reflection Sessions', 'Creative Workshops'],
   },
 ]
 
-const OFFERINGS = [
+interface Tier {
+  label: string
+  tagline: string
+  description: string
+  meta: string
+  note?: string
+  cta: string
+}
+
+interface Offering {
+  slug: string
+  category: string
+  title: string
+  duration?: string
+  format?: string
+  price?: string
+  description: string
+  callouts?: string[]
+  ctaLabel?: string
+  // For offerings that need more than a single price/description block
+  intro?: string
+  bullets?: string[]
+  closingLine?: string
+  approach?: string
+  tiers?: Tier[]
+}
+
+const OFFERINGS: Offering[] = [
   {
-    slug:'nature-experiences', category:'Nature', title:'Nature Experiences',
-    duration:'Half-day or full-day', format:'Groups of 8–20', price:'***PRICE***',
-    description:"Guided hikes, nature walks, and outdoor reflection activities built around noticing the things you don't notice indoors — your breath, your thoughts, the actual sound of wind instead of a notification. We also run regular community gatherings outdoors, since the best conversations tend to happen when nobody's trying to have one.",
+    slug:'kathmandu-valley-hikes', category:'Nature', title:'Kathmandu Valley Guided Hikes',
+    duration:'Half day', format:'Small-group', price:'Rs. 350/person',
+    description:"Explore the hills around Kathmandu with a NovaNest guide — walking, noticing, talking, and taking a proper break from the usual routine.",
     callouts: [
-      "No fitness level required — pace adjusts to whoever shows up",
-      "Includes guided hikes, nature walks, outdoor reflection activities, and community gatherings",
-      "Most popular on weekend mornings, when everyone still has a bit of Tuesday in their legs",
+      "Tickets and entry fees are not included",
+      "Guided by NovaNest with all safety meds and equipment",
+      "Small-group experience",
+    ],
+  },
+  {
+    slug:'beyond-the-valley', category:'Nature', title:'Beyond the Valley',
+    duration:'Full day · varies by destination', format:'Small-group', price:'Rs. 1,500–3,000/person',
+    description:"We also organize guided hikes and nature experiences outside the Kathmandu valley, with transportation arranged both ways.",
+    callouts: [
+      "Includes transportation + guided experience — destination-specific entry fees mentioned before booking",
+      "Guided hike with all safety meds and equipment",
+      "Destination-specific experience, small-group setting",
     ],
   },
   {
     slug:'movement-expression', category:'Movement', title:'Movement & Expression',
-    duration:'60–90 min', format:'Drop-in or series', price:'***PRICE***',
-    description:"For people who think better when they move. Somatic movement sessions, ecstatic and free-form dance, and playful group activities that don't require you to know a single step — just a body willing to move it.",
+    duration:'75 minutes', format:'Public group or private/retreat', price:'From $15/person',
+    description:"A space to explore movement, play, and self-expression — guided by the music, the moment, and your own way of moving. No dance experience needed. Come as you are.",
     callouts: [
-      "No dance background needed, and no mirrors either",
-      "Includes somatic sessions, ecstatic dance, and movement-based mindfulness",
-      "The good kind of sweaty — the kind you don't regret",
+      "Private / retreat groups: custom quote",
+      "Public group sessions: from $15/person",
+      "No dance experience needed — just a willingness to move",
+    ],
+    ctaLabel: 'Book an Experience',
+  },
+  {
+    slug:'sound-healing', category:'Presence', title:'Sound Healing',
+    duration:'60 min', format:'Individual or group', price:'From $25/person',
+    description:"Put down the noise for a while. A guided sound experience with Tibetan singing bowls and crystal frequencies of gentle tones — a chance to slow down, listen inward, and simply be still for a while.",
+    callouts: [
+      "Private & retreat groups available",
+      "Comfortable clothing recommended",
+      "No experience needed — just show up and lie down",
     ],
   },
   {
-    slug:'relaxation-presence', category:'Presence', title:'Deep Relaxation & Presence',
-    duration:'60–75 min', format:'Individual or group', price:'***PRICE***',
-    description:"Sound healing, breathwork, and guided relaxation for people whose minds don't slow down just because somebody told them to relax. These sessions quiet the noise without forcing stillness — the sessions do the work for you.",
+    slug:'breathwork', category:'Presence', title:'Breathwork',
+    duration:'75 min', format:'Individual or group', price:'From $25/person',
+    description:"A guided breathing experience to slow down, reconnect with your body, and notice what's happening within. Through conscious breathing, music, and gentle guidance, you'll explore breath as a way to shift your state, settle your attention, and create space to pause.",
     callouts: [
-      "Works even if you've never meditated in your life",
-      "Includes sound healing, breathwork, and guided relaxation experiences",
-      "Bring a mat, leave the to-do list at the door",
+      "No previous experience needed",
+      "Comfortable clothing recommended",
+      "Private & retreat groups available",
     ],
   },
   {
-    slug:'growth-leadership', category:'Growth', title:'Growth & Leadership Workshops',
-    duration:'Half-day', format:'Groups of 6–30', price:'***PRICE***',
-    description:"Interactive workshops grounded in real psychology, neuroscience, and leadership research — minus the whiteboard fatigue. Built for people and teams who learn by doing, not by being lectured at for two hours.",
-    callouts: [
-      "Includes neuroscience-based workshops, leadership development, and team-building sessions",
-      "Popular with teams who've sat through one too many generic offsites",
-      "Personal growth sessions also available one-on-one, not just for groups",
+    slug:'mind-brain-behaviour', category:'Growth', title:'Mind, Brain & Behaviour',
+    description:"Maybe you're looking for something, but you're not quite sure what to call it.",
+    intro:"Maybe you're looking for something, but you're not quite sure what to call it.",
+    bullets: [
+      "You keep overthinking the same situation.",
+      "You know what you want to do, but keep getting in your own way.",
+      "You want to communicate differently, handle pressure better, or understand why you keep falling into the same patterns.",
+    ],
+    closingLine: "Start with what's happening. We'll explore the rest together.",
+    approach: "Our approach: Neuroscience · NLP · Behavioural Psychology · Mindfulness",
+    tiers: [
+      {
+        label: '1:1 Sessions', tagline: 'For when you want to work on something personal.',
+        description: "A private, practical session using NLP tools, behavioural psychology, and neuroscience-informed approaches to explore patterns in thinking, emotion, attention, communication, and behaviour.",
+        meta: 'Solo · 60–90 min · By appointment',
+        note: 'For a deeper exploration, 90-minute sessions start from $65.',
+        cta: 'Book a 1:1 Session →',
+      },
+      {
+        label: 'Group & Corporate Experiences', tagline: 'For when the question belongs to a whole team.',
+        description: "Interactive experiences exploring how people think, communicate, make decisions, respond under pressure, and work together — through activities, conversation, and accessible neuroscience.",
+        meta: 'Teams · Corporate groups · Private groups · Custom duration',
+        note: 'Private groups from $200 · Corporate teams from $300',
+        cta: 'Create a Group Experience →',
+      },
     ],
   },
   {
-    slug:'retreats-immersive', category:'Immersion', title:'Retreats & Immersive Experiences',
-    duration:'2–4 days', format:'Individuals, teams, or communities', price:'***From PRICE***',
-    description:"Weekend retreats, nature retreats, and fully customized team retreats for people who want more than a few hours. This is where everything else NovaNest does gets room to breathe — nature, movement, workshops, and conversations around a fire that run later than planned.",
-    callouts: [
-      "Corporate retreats available with an agenda built around your team, not a template",
-      "Customized retreat experiences for communities and organizations of any size",
-      "The one people are still talking about a year later",
+    slug:'design-your-nepal-experience', category:'Immersion', title:"Let's Design Your Nepal Experience",
+    description:"Nepal doesn't come in one size: a retreat could mean a comfortable farm stay close to Kathmandu, a mountain village, a riverside escape, or a deeper journey into the landscape. Tell us what you're looking for, and we'll shape the experience around your group — from fitness level and travel style to comfort, curiosity, pace, interests, and the kind of challenge you're up for.",
+    intro: 'For private groups, teams & international groups — we\'ll talk about:',
+    bullets: [
+      "Where you want to go",
+      "How adventurous or comfortable you want it to be",
+      "Your group's fitness and experience level",
+      "What you'd like to explore, learn, or simply experience",
+      "How much time you have",
+      "Your budget and travel preferences",
     ],
+    closingLine: "Then we'll suggest a route and experience that fits.",
+    ctaLabel: 'Book a Free Planning Call →',
   },
 ]
 
@@ -157,11 +228,12 @@ export default function OfferingsClient({ siteImages }: { siteImages: Record<str
       <section style={{ background:'var(--parchment)' }}>
         {OFFERINGS.map((o, i) => (
           <RevealWrapper key={o.slug}>
-            <div className="nn-rg" style={{
+            <div id={o.slug} className="nn-rg" style={{
               display:'grid',
               gridTemplateColumns: i % 2 === 0 ? '340px 1fr' : '1fr 340px',
               gap:0,
               borderBottom:'1px solid var(--border)',
+              scrollMarginTop:'5.5rem',
             }}>
               {/* Image zone */}
               <div style={{ order: i % 2 === 0 ? 0 : 1, background:'var(--parchment-deep)', minHeight:'340px' }}>
@@ -192,29 +264,91 @@ export default function OfferingsClient({ siteImages }: { siteImages: Record<str
                 <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.6rem', fontWeight:600, letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--text-ghost)', marginBottom:'0.8rem' }}>{o.category}</div>
                 <h2 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'2.4rem', fontWeight:300, color:'var(--forest-800)', marginBottom:'1rem', lineHeight:1.1 }}>{o.title}</h2>
 
-                {/* Meta — inline, not a table */}
-                <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.75rem', color:'var(--text-muted)', marginBottom:'1.5rem', display:'flex', gap:'1.5rem', flexWrap:'wrap' }}>
-                  <span>{o.duration}</span>
-                  <span style={{ color:'var(--border-strong)' }}>·</span>
-                  <span>{o.format}</span>
-                  <span style={{ color:'var(--border-strong)' }}>·</span>
-                  <span style={{ fontWeight:600, color:'var(--gold-dark)' }}>{o.price}</span>
-                </div>
-
-                <p style={{ fontSize:'0.95rem', lineHeight:1.85, color:'var(--text-body)', marginBottom:'1.8rem' }}>{o.description}</p>
-
-                {/* Callouts — not a bullet list, more natural */}
-                <div style={{ marginBottom:'2rem' }}>
-                  {o.callouts.map((c, ci) => (
-                    <div key={ci} style={{ fontFamily:'Inter,sans-serif', fontSize:'0.83rem', color:'var(--text-muted)', lineHeight:1.65, paddingLeft:'1rem', borderLeft:`2px solid ${ci === 0 ? 'var(--gold)' : 'var(--border)'}`, marginBottom:'0.6rem', fontStyle: ci === 0 ? 'italic' : 'normal' }}>
-                      {c}
+                {o.tiers ? (
+                  // ── Multi-tier layout (Mind, Brain & Behaviour) ──
+                  <>
+                    <p style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.2rem', fontStyle:'italic', fontWeight:300, color:'var(--forest-700)', lineHeight:1.5, marginBottom:'1.2rem' }}>
+                      {o.intro}
+                    </p>
+                    {o.bullets && (
+                      <div style={{ marginBottom:'1.2rem' }}>
+                        {o.bullets.map((b, bi) => (
+                          <div key={bi} style={{ fontFamily:'Inter,sans-serif', fontSize:'0.87rem', color:'var(--text-body)', lineHeight:1.7, paddingLeft:'1rem', borderLeft:'2px solid var(--border)', marginBottom:'0.5rem' }}>
+                            {b}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    {o.closingLine && (
+                      <p style={{ fontSize:'0.9rem', color:'var(--text-muted)', fontStyle:'italic', marginBottom:'2rem' }}>{o.closingLine}</p>
+                    )}
+                    <div style={{ display:'flex', flexDirection:'column', gap:'1.75rem', marginBottom:'1.5rem' }}>
+                      {o.tiers.map((t, ti) => (
+                        <div key={ti} style={{ paddingTop: ti > 0 ? '1.75rem' : 0, borderTop: ti > 0 ? '1px solid var(--border)' : 'none' }}>
+                          <div style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.3rem', fontWeight:400, color:'var(--forest-800)', marginBottom:'0.3rem' }}>{t.label}</div>
+                          <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.8rem', fontStyle:'italic', color:'var(--text-muted)', marginBottom:'0.6rem' }}>{t.tagline}</div>
+                          <p style={{ fontSize:'0.88rem', lineHeight:1.75, color:'var(--text-body)', marginBottom:'0.7rem' }}>{t.description}</p>
+                          <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.75rem', color:'var(--text-muted)', marginBottom:'0.3rem' }}>{t.meta}</div>
+                          {t.note && <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.75rem', color:'var(--gold-dark)', fontWeight:600, marginBottom:'0.9rem' }}>{t.note}</div>}
+                          <Link href="/book" className="btn btn-outline" style={{ fontSize:'0.65rem' }}>{t.cta}</Link>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                    {o.approach && (
+                      <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.75rem', color:'var(--text-ghost)', letterSpacing:'0.02em', paddingTop:'1.5rem', borderTop:'1px solid var(--border)' }}>
+                        {o.approach}
+                      </div>
+                    )}
+                  </>
+                ) : o.bullets ? (
+                  // ── Description + bullet-list layout (Nepal Experience) ──
+                  <>
+                    <p style={{ fontSize:'0.95rem', lineHeight:1.85, color:'var(--text-body)', marginBottom:'1.5rem' }}>{o.description}</p>
+                    {o.intro && (
+                      <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.72rem', fontWeight:600, letterSpacing:'0.06em', color:'var(--forest-600)', marginBottom:'1rem' }}>{o.intro}</div>
+                    )}
+                    <div style={{ marginBottom:'1.2rem' }}>
+                      {o.bullets.map((b, bi) => (
+                        <div key={bi} style={{ fontFamily:'Inter,sans-serif', fontSize:'0.87rem', color:'var(--text-body)', lineHeight:1.7, paddingLeft:'1rem', borderLeft:'2px solid var(--border)', marginBottom:'0.5rem' }}>
+                          {b}
+                        </div>
+                      ))}
+                    </div>
+                    {o.closingLine && (
+                      <p style={{ fontSize:'0.9rem', color:'var(--text-muted)', fontStyle:'italic', marginBottom:'1.8rem' }}>{o.closingLine}</p>
+                    )}
+                    <div>
+                      <Link href="/book" className="btn btn-forest" style={{ fontSize:'0.65rem' }}>{o.ctaLabel ?? 'Book this'}</Link>
+                    </div>
+                  </>
+                ) : (
+                  // ── Standard layout ──
+                  <>
+                    <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.75rem', color:'var(--text-muted)', marginBottom:'1.5rem', display:'flex', gap:'1.5rem', flexWrap:'wrap' }}>
+                      {o.duration && <span>{o.duration}</span>}
+                      {o.duration && o.format && <span style={{ color:'var(--border-strong)' }}>·</span>}
+                      {o.format && <span>{o.format}</span>}
+                      {o.price && <span style={{ color:'var(--border-strong)' }}>·</span>}
+                      {o.price && <span style={{ fontWeight:600, color:'var(--gold-dark)' }}>{o.price}</span>}
+                    </div>
 
-                <div>
-                  <Link href="/book" className="btn btn-forest" style={{ fontSize:'0.65rem' }}>Book this</Link>
-                </div>
+                    <p style={{ fontSize:'0.95rem', lineHeight:1.85, color:'var(--text-body)', marginBottom:'1.8rem' }}>{o.description}</p>
+
+                    {o.callouts && (
+                      <div style={{ marginBottom:'2rem' }}>
+                        {o.callouts.map((c, ci) => (
+                          <div key={ci} style={{ fontFamily:'Inter,sans-serif', fontSize:'0.83rem', color:'var(--text-muted)', lineHeight:1.65, paddingLeft:'1rem', borderLeft:`2px solid ${ci === 0 ? 'var(--gold)' : 'var(--border)'}`, marginBottom:'0.6rem', fontStyle: ci === 0 ? 'italic' : 'normal' }}>
+                            {c}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    <div>
+                      <Link href="/book" className="btn btn-forest" style={{ fontSize:'0.65rem' }}>{o.ctaLabel ?? 'Book this'}</Link>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </RevealWrapper>

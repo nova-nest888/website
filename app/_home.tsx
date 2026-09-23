@@ -9,9 +9,9 @@ import { uploadToCloudinary } from '@/lib/cloudinary'
 import { saveSiteImage } from '@/lib/saveSiteImage'
 
 const FALLBACK_TESTIMONIALS = [
-  { id:'1', name:'Sarah M.',  role:'Sunrise Hike',    content:"I went because a coworker dragged me. I stayed because I made three friends before we even reached the top." },
-  { id:'2', name:'Ravi K.',   role:'Friday Circle', content:"First time in years I laughed that hard with people I'd met an hour earlier. Didn't see that coming." },
-  { id:'3', name:'Emma L.',   role:'Weekend Retreat',  content:"Our team hadn't actually talked — not about anything real — in over a year. This retreat cracked that open in a day." },
+  { id:'1', name:'Mina Rawat',     role:'Moment during village trip',              content:"The local raksi tasted even better when I tasted it mindfully." },
+  { id:'2', name:'Preeti Thapa',   role:'Moment during the cultural experience',   content:"For the first time in years I laughed that hard with people I'd met an hour earlier. Didn't see that coming." },
+  { id:'3', name:'Prashant Kuwar', role:'Moment during Bonfire',                   content:"Our team hadn't actually talked — not about anything real — in over a year. This retreat cracked that open in a day." },
 ]
 
 // Shown until an admin uploads a real photo from a NovaNest gathering.
@@ -97,7 +97,7 @@ export default function HomeClient({ testimonials, siteImages }: { testimonials:
               What if clarity lives<br/>somewhere between<br/><em style={{ color:'var(--forest-200)' }}>laughter and nature?</em>
             </h1>
             <p style={{ color:'rgba(200,217,195,0.72)', fontSize:'1.08rem', lineHeight:1.8, maxWidth:'500px', marginBottom:'2.8rem', fontFamily:'Inter,sans-serif', animation:'fadeUp 0.8s 0.2s ease both' }}>
-              NovaNest is a community-driven experience company — weekly gatherings, outdoor adventures, creative workshops, and retreats for people who believe growth shouldn't feel like homework.
+              NovaNest is a community-driven experience company creating spaces to pause, play, explore, connect, and see life a little differently — through outdoor adventures, creative workshops, spiritual experiences, gatherings, and retreats.
             </p>
             <div style={{ display:'flex', gap:'1rem', flexWrap:'wrap', animation:'fadeUp 0.8s 0.3s ease both' }}>
               <Link href="/book" className="btn btn-parchment">Find Your Experience</Link>
@@ -240,18 +240,20 @@ export default function HomeClient({ testimonials, siteImages }: { testimonials:
 
             <div style={{ display:'flex', flexDirection:'column', gap:'2px' }}>
               <RevealWrapper delay={80}>
-                <div style={{ background:'var(--parchment)', padding:'2.5rem', flex:1 }}>
+                <Link href="/offerings#sound-healing" className="nn-teaser-card" style={{ background:'var(--parchment)', padding:'2.5rem', flex:1, display:'block', textDecoration:'none' }}>
                   <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.6rem', fontWeight:600, letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--text-ghost)', marginBottom:'0.8rem' }}>Presence</div>
                   <h3 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.5rem', fontWeight:300, color:'var(--forest-800)', marginBottom:'0.6rem' }}>Sound &amp; Breathwork</h3>
-                  <p style={{ fontSize:'0.87rem', color:'var(--text-body)', lineHeight:1.75 }}>Sound healing and breathwork sessions for minds that don't slow down just because someone told them to relax.</p>
-                </div>
+                  <p style={{ fontSize:'0.87rem', color:'var(--text-body)', lineHeight:1.75, marginBottom:'0.8rem' }}>Sound healing and breathwork sessions for minds that don't slow down just because someone told them to relax.</p>
+                  <span className="nn-teaser-arrow" style={{ fontFamily:'Inter,sans-serif', fontSize:'0.68rem', fontWeight:600, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--gold-dark)' }}>See this →</span>
+                </Link>
               </RevealWrapper>
               <RevealWrapper delay={140}>
-                <div style={{ background:'var(--forest-50)', padding:'2.5rem', flex:1 }}>
+                <Link href="/offerings#movement-expression" className="nn-teaser-card" style={{ background:'var(--forest-50)', padding:'2.5rem', flex:1, display:'block', textDecoration:'none' }}>
                   <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.6rem', fontWeight:600, letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--text-ghost)', marginBottom:'0.8rem' }}>Movement</div>
                   <h3 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.5rem', fontWeight:300, color:'var(--forest-800)', marginBottom:'0.6rem' }}>Movement &amp; Expression</h3>
-                  <p style={{ fontSize:'0.87rem', color:'var(--text-body)', lineHeight:1.75 }}>Somatic sessions, free-form dance, and playful group activities. No steps to learn, no mirrors to check yourself in.</p>
-                </div>
+                  <p style={{ fontSize:'0.87rem', color:'var(--text-body)', lineHeight:1.75, marginBottom:'0.8rem' }}>Somatic sessions, free-form dance, and playful group activities. No steps to learn, no mirrors to check yourself in.</p>
+                  <span className="nn-teaser-arrow" style={{ fontFamily:'Inter,sans-serif', fontSize:'0.68rem', fontWeight:600, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--gold-dark)' }}>See this →</span>
+                </Link>
               </RevealWrapper>
             </div>
           </div>
@@ -259,19 +261,20 @@ export default function HomeClient({ testimonials, siteImages }: { testimonials:
           {/* Second row — 3 equal */}
           <div className="nn-rg3" style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:'2px' }}>
             {[
-              { cat:'Growth', t:'Leadership Workshops', d:'Interactive sessions grounded in real psychology and neuroscience — for individuals and teams who learn by doing, not by sitting through slides.' },
-              { cat:'Immersion',  t:'Retreats',        d:'Weekend retreats, nature retreats, and fully customized team retreats. The thing people keep coming back to, years later.' },
-              { cat:'Community', t:'Weekly Gatherings',   d:'Regular hikes, circles, and community events. The easiest way to meet people who feel like your people.' },
+              { cat:'Growth', t:'Mind, Brain & Behaviour', d:'NLP, behavioural psychology, and accessible neuroscience — for individuals and teams who learn by doing, not by sitting through slides.', href:'/offerings#mind-brain-behaviour' },
+              { cat:'Immersion',  t:'Retreats',        d:'Weekend retreats, nature retreats, and fully customized team retreats. The thing people keep coming back to, years later.', href:'/offerings#design-your-nepal-experience' },
+              { cat:'Community', t:'Weekly Gatherings',   d:'Regular hikes, circles, and community events. The easiest way to meet people who feel like your people.', href:'/offerings' },
             ].map((o, i) => (
               <RevealWrapper key={i} delay={i*70}>
-                <div style={{ background:'var(--parchment)', padding:'2.5rem', height:'100%', borderLeft:'3px solid transparent', transition:'border-color 0.25s ease' }}
+                <Link href={o.href} className="nn-teaser-card" style={{ background:'var(--parchment)', padding:'2.5rem', height:'100%', borderLeft:'3px solid transparent', transition:'border-color 0.25s ease', display:'block', textDecoration:'none' }}
                   onMouseEnter={e => (e.currentTarget.style.borderLeftColor='var(--gold)')}
                   onMouseLeave={e => (e.currentTarget.style.borderLeftColor='transparent')}
                 >
                   <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.6rem', fontWeight:600, letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--text-ghost)', marginBottom:'0.8rem' }}>{o.cat}</div>
                   <h3 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.45rem', fontWeight:300, color:'var(--forest-800)', marginBottom:'0.8rem' }}>{o.t}</h3>
-                  <p style={{ fontSize:'0.87rem', color:'var(--text-body)', lineHeight:1.75 }}>{o.d}</p>
-                </div>
+                  <p style={{ fontSize:'0.87rem', color:'var(--text-body)', lineHeight:1.75, marginBottom:'0.8rem' }}>{o.d}</p>
+                  <span className="nn-teaser-arrow" style={{ fontFamily:'Inter,sans-serif', fontSize:'0.68rem', fontWeight:600, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--gold-dark)' }}>See this →</span>
+                </Link>
               </RevealWrapper>
             ))}
           </div>
