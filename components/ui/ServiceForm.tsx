@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { toSlug } from '@/lib/utils'
+<<<<<<< HEAD
 import type { ServiceDoc, ServiceOptionGroup } from '@/types'
 
 const CATEGORIES = ['Nature','Movement','Presence','Growth','Immersion','Community']
@@ -11,6 +12,12 @@ const PRESETS: Record<string, ServiceOptionGroup> = {
   'Indoor / Outdoor':   { label: 'Where would you like it?', choices: [{ label: 'Indoor' }, { label: 'Outdoor (in nature)' }] },
 }
 
+=======
+import type { ServiceDoc } from '@/types'
+
+const CATEGORIES = ['Nature','Movement','Presence','Growth','Immersion','Community']
+
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
 interface ServiceFormProps {
   initial?: Partial<ServiceDoc>
   onSave: (data: Record<string, unknown>) => Promise<void>
@@ -28,7 +35,10 @@ export default function ServiceForm({ initial = {}, onSave }: ServiceFormProps) 
     calSlug:     initial.calSlug     ?? '',
     isActive:    initial.isActive    ?? true,
   })
+<<<<<<< HEAD
   const [groups, setGroups] = useState<ServiceOptionGroup[]>(initial.optionGroups ?? [])
+=======
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
   const [saving, setSaving] = useState(false)
   const [error,  setError]  = useState('')
   const [saved,  setSaved]  = useState(false)
@@ -36,6 +46,7 @@ export default function ServiceForm({ initial = {}, onSave }: ServiceFormProps) 
   const set = (k: string, v: string | number | boolean) =>
     setForm(f => ({ ...f, [k]: v, ...(k === 'title' ? { slug: toSlug(v as string), calSlug: toSlug(v as string) } : {}) }))
 
+<<<<<<< HEAD
   const updateGroup  = (gi: number, patch: Partial<ServiceOptionGroup>) =>
     setGroups(g => g.map((x, i) => i === gi ? { ...x, ...patch } : x))
   const updateChoice = (gi: number, ci: number, patch: Record<string, unknown>) =>
@@ -68,6 +79,13 @@ export default function ServiceForm({ initial = {}, onSave }: ServiceFormProps) 
     setSaving(true); setError('')
     try {
       await onSave({ ...form, duration: Number(form.duration), price: Number(form.price), optionGroups: cleaned })
+=======
+  const submit = async () => {
+    if (!form.title || !form.slug) { setError('Title and slug are required.'); return }
+    setSaving(true); setError('')
+    try {
+      await onSave({ ...form, duration: Number(form.duration), price: Number(form.price) })
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
       setSaved(true)
       setTimeout(() => router.push('/admin/services'), 600)
     } catch (e: any) {
@@ -108,7 +126,11 @@ export default function ServiceForm({ initial = {}, onSave }: ServiceFormProps) 
           <input type="number" value={form.duration} onChange={e => set('duration', e.target.value)} className="field-input" min={15} step={15}/>
         </div>
         <div>
+<<<<<<< HEAD
           <label className="field-label">Price ($) — shown on Experiences & Booking</label>
+=======
+          <label className="field-label">Price ($) — 0 = free</label>
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
           <input type="number" value={form.price} onChange={e => set('price', e.target.value)} className="field-input" min={0} step={5}/>
         </div>
       </div>
@@ -118,6 +140,7 @@ export default function ServiceForm({ initial = {}, onSave }: ServiceFormProps) 
         <textarea value={form.description} onChange={e => set('description', e.target.value)} rows={4} className="field-input" style={{ resize:'vertical' }} placeholder="What happens in this session? Keep it specific and honest."/>
       </div>
 
+<<<<<<< HEAD
       {/* Booking options — shown to the booker in step 1, before the calendar */}
       <div style={{ borderTop:'1px solid var(--border)', paddingTop:'1.5rem' }}>
         <label className="field-label">Booking options (optional)</label>
@@ -152,6 +175,8 @@ export default function ServiceForm({ initial = {}, onSave }: ServiceFormProps) 
         </div>
       </div>
 
+=======
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
       <div style={{ display:'flex', alignItems:'center', gap:'0.7rem', padding:'0.8rem 1rem', background:'var(--parchment-mid)' }}>
         <input type="checkbox" id="active" checked={form.isActive} onChange={e => set('isActive', e.target.checked)} style={{ accentColor:'var(--forest-600)', width:16, height:16 }}/>
         <label htmlFor="active" style={{ fontFamily:'Inter,sans-serif', fontSize:'0.85rem', color:'var(--text-body)', cursor:'pointer' }}>

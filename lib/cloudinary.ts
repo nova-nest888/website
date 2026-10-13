@@ -1,4 +1,5 @@
 /**
+<<<<<<< HEAD
  * Client-side upload helper.
  *
  * Why it works this way:
@@ -7,6 +8,12 @@
  *  2. The file then goes DIRECTLY to Cloudinary using a signature from our admin-only
  *     /api/upload/sign route. It never passes through our server, so Vercel's ~4.5MB
  *     request-body limit can't block it. The API secret never reaches the browser.
+=======
+ * Client-side upload helper. The actual Cloudinary call happens server-side
+ * (see app/api/upload/route.ts) — the browser just sends the file to our own
+ * admin-gated API route, which signs and forwards it using the Cloudinary API
+ * secret. The secret never reaches the browser.
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
  */
 
 export interface UploadResult {
@@ -16,6 +23,7 @@ export interface UploadResult {
   resourceType: 'image' | 'video'
 }
 
+<<<<<<< HEAD
 const MAX_IMAGE_INPUT_BYTES = 60 * 1024 * 1024   // original file we'll accept (gets shrunk)
 const MAX_VIDEO_BYTES       = 100 * 1024 * 1024  // 100MB (Cloudinary free-plan video limit)
 const MAX_DIMENSION         = 2400
@@ -48,10 +56,15 @@ async function shrinkImage(file: File): Promise<File | Blob> {
     return file
   }
 }
+=======
+const MAX_IMAGE_BYTES = 10 * 1024 * 1024   // 10MB
+const MAX_VIDEO_BYTES = 100 * 1024 * 1024  // 100MB
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
 
 export async function uploadToCloudinary(file: File, folder = 'novanest'): Promise<UploadResult> {
   const isVideo = file.type.startsWith('video/')
   const isImage = file.type.startsWith('image/')
+<<<<<<< HEAD
   if (!isVideo && !isImage) throw new Error('Please choose an image or video file.')
   if (isImage && file.size > MAX_IMAGE_INPUT_BYTES) throw new Error('That image is over 60MB — please choose a smaller file.')
   if (isVideo && file.size > MAX_VIDEO_BYTES) throw new Error('Video is larger than 100MB — please choose a smaller file or trim it.')
@@ -89,6 +102,30 @@ export async function uploadToCloudinary(file: File, folder = 'novanest'): Promi
   }
 
   return { url: json.secure_url as string, width: json.width, height: json.height, resourceType }
+=======
+  if (!isVideo && !isImage) {
+    throw new Error('Please choose an image or video file.')
+  }
+  if (isImage && file.size > MAX_IMAGE_BYTES) {
+    throw new Error('Image is larger than 10MB — please choose a smaller file.')
+  }
+  if (isVideo && file.size > MAX_VIDEO_BYTES) {
+    throw new Error('Video is larger than 100MB — please choose a smaller file.')
+  }
+
+  const form = new FormData()
+  form.append('file', file)
+  form.append('folder', folder)
+
+  const res = await fetch('/api/upload', { method: 'POST', body: form })
+  const json = await res.json().catch(() => null)
+
+  if (!res.ok) {
+    throw new Error(json?.error ?? 'Upload failed — please try again.')
+  }
+
+  return json.data as UploadResult
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
 }
 
 /** True if a URL looks like it points to a video file (by extension). */

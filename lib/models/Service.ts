@@ -8,12 +8,16 @@ export interface IService extends Document {
   price: number
   category: import('@/types').ServiceCategory
   calSlug: string
+<<<<<<< HEAD
   optionGroups: import('@/types').ServiceOptionGroup[]
+=======
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
   isActive: boolean
   createdAt: Date
   updatedAt: Date
 }
 
+<<<<<<< HEAD
 const ChoiceSchema = new Schema(
   {
     label:       { type: String, required: true, trim: true },
@@ -31,6 +35,8 @@ const OptionGroupSchema = new Schema(
   { _id: false }
 )
 
+=======
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
 const ServiceSchema = new Schema<IService>(
   {
     title:       { type: String, required: true, trim: true },
@@ -40,7 +46,10 @@ const ServiceSchema = new Schema<IService>(
     price:       { type: Number, default: 0, min: 0 },
     category:    { type: String, required: true, enum: ['Nature','Movement','Presence','Growth','Immersion','Community'] },
     calSlug:     { type: String, default: '' },
+<<<<<<< HEAD
     optionGroups:{ type: [OptionGroupSchema], default: [] },
+=======
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
     isActive:    { type: Boolean, default: true },
   },
   {

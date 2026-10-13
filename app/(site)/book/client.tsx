@@ -1,7 +1,11 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+<<<<<<< HEAD
 import type { ServiceDoc, ServiceOptionChoice } from '@/types'
+=======
+import type { ServiceDoc } from '@/types'
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
 
 const FALLBACK_SERVICES: ServiceDoc[] = [
   { _id:'s1', id:'s1', title:'Nature Experience — Half Day',   slug:'nature-half-day',     category:'Nature',    duration:240, price:0, calSlug:'nature-half-day',     description:"Guided hike or nature walk built around slowing down and noticing what you usually miss.", isActive:true, createdAt:'', updatedAt:'' },
@@ -49,7 +53,11 @@ function loadCalScript() {
   }
 }
 
+<<<<<<< HEAD
 function CalEmbed({ calSlug, notes, onBooked }: { calSlug: string; notes?: string; onBooked: () => void }) {
+=======
+function CalEmbed({ calSlug, onBooked }: { calSlug: string; onBooked: () => void }) {
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
   const ref    = useRef<HTMLDivElement>(null)
   const calUser = process.env.NEXT_PUBLIC_CAL_USERNAME ?? '***YOUR-CAL-USERNAME***'
 
@@ -66,7 +74,10 @@ function CalEmbed({ calSlug, notes, onBooked }: { calSlug: string; notes?: strin
       calLink: `${calUser}/${calSlug}`,
       config: {
         layout: 'month_view',
+<<<<<<< HEAD
         ...(notes ? { notes } : {}),
+=======
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
         cssVarsPerTheme: {
           light: {
             'cal-brand':          '#3D5232',
@@ -89,11 +100,16 @@ function CalEmbed({ calSlug, notes, onBooked }: { calSlug: string; notes?: strin
       if (ref.current) ref.current.innerHTML = ''
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
+<<<<<<< HEAD
   }, [calSlug, notes])
+=======
+  }, [calSlug])
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
 
   return <div ref={ref} id={`cal-${calSlug}`} style={{ minHeight: 650, width: '100%' }} />
 }
 
+<<<<<<< HEAD
 // Prices come from Admin → Services (the same price the Experiences page shows).
 function priceLabel(svc: ServiceDoc, picked: ServiceOptionChoice[] = []): string {
   // A picked option with its own price (e.g. "Outdoor") overrides the service price
@@ -105,12 +121,16 @@ function priceLabel(svc: ServiceDoc, picked: ServiceOptionChoice[] = []): string
 }
 
 type Step = 'select' | 'options' | 'calendar' | 'confirmed'
+=======
+type Step = 'select' | 'calendar' | 'confirmed'
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
 
 export default function BookClient({ services }: { services: ServiceDoc[] }) {
   const display               = services.length > 0 ? services : FALLBACK_SERVICES
   const [step, setStep]       = useState<Step>('select')
   const [selected, setSelected] = useState<ServiceDoc | null>(null)
 
+<<<<<<< HEAD
   // picks[i] = index of the choice selected for optionGroups[i]
   const [picks, setPicks] = useState<Record<number, number>>({})
 
@@ -132,6 +152,9 @@ export default function BookClient({ services }: { services: ServiceDoc[] }) {
     ? 'Booking preferences — ' + groupsOf(selected).map((g, gi) => picks[gi] !== undefined ? `${g.label} ${g.choices[picks[gi]].label}` : '').filter(Boolean).join('; ')
     : undefined
   const crumbStep = step === 'options' ? 'select' : step
+=======
+  const choose = (svc: ServiceDoc) => { setSelected(svc); setStep('calendar') }
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
 
   return (
     <>
@@ -155,8 +178,13 @@ export default function BookClient({ services }: { services: ServiceDoc[] }) {
         <div className="container">
           <div style={{ display:'flex', alignItems:'center', gap:'1.5rem' }}>
             {[['select','1','Choose Experience'],['calendar','2','Pick a Time'],['confirmed','3','Confirmed']].map(([s,n,label], i) => {
+<<<<<<< HEAD
               const done    = ['select','calendar','confirmed'].indexOf(crumbStep) > i
               const current = crumbStep === s
+=======
+              const done    = ['select','calendar','confirmed'].indexOf(step) > i
+              const current = step === s
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
               return (
                 <div key={s} style={{ display:'flex', alignItems:'center', gap:'0.5rem' }}>
                   <div style={{ width:22, height:22, borderRadius:'50%', background: current||done ? 'var(--forest-600)' : 'var(--border-strong)', display:'flex', alignItems:'center', justifyContent:'center', fontFamily:'Inter,sans-serif', fontSize:'0.62rem', fontWeight:700, color:'white', flexShrink:0 }}>
@@ -192,7 +220,11 @@ export default function BookClient({ services }: { services: ServiceDoc[] }) {
                     <div style={{ display:'flex', gap:'1.5rem' }}>
                       <span style={{ fontFamily:'Inter,sans-serif', fontSize:'0.72rem', color:'var(--forest-500)' }}>{svc.duration} min</span>
                       <span style={{ fontFamily:'Inter,sans-serif', fontSize:'0.72rem', fontWeight:600, color:'var(--gold-dark)' }}>
+<<<<<<< HEAD
                         {priceLabel(svc)}
+=======
+                        {svc.price === 0 ? 'Free' : `$${svc.price}`}
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
                       </span>
                     </div>
                   </button>
@@ -216,6 +248,7 @@ export default function BookClient({ services }: { services: ServiceDoc[] }) {
             </div>
           )}
 
+<<<<<<< HEAD
           {/* ── STEP 1b: Booking options (set by admin per service) ── */}
           {step === 'options' && selected && (
             <div style={{ maxWidth:'720px' }}>
@@ -258,6 +291,12 @@ export default function BookClient({ services }: { services: ServiceDoc[] }) {
           {step === 'calendar' && selected && (
             <div>
               <button onClick={() => { if (groupsOf(selected).length) { setStep('options') } else { setStep('select'); setSelected(null) } }} style={{ background:'none', border:'none', cursor:'pointer', fontFamily:'Inter,sans-serif', fontSize:'0.67rem', fontWeight:500, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--forest-500)', padding:0, marginBottom:'2rem', display:'flex', alignItems:'center', gap:'0.4rem' }}>
+=======
+          {/* ── STEP 2: Calendar ── */}
+          {step === 'calendar' && selected && (
+            <div>
+              <button onClick={() => { setStep('select'); setSelected(null) }} style={{ background:'none', border:'none', cursor:'pointer', fontFamily:'Inter,sans-serif', fontSize:'0.67rem', fontWeight:500, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--forest-500)', padding:0, marginBottom:'2rem', display:'flex', alignItems:'center', gap:'0.4rem' }}>
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
                 ← Change experience
               </button>
 
@@ -268,7 +307,11 @@ export default function BookClient({ services }: { services: ServiceDoc[] }) {
                   <h3 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.4rem', fontWeight:200, color:'var(--parchment)', marginBottom:'0.8rem', lineHeight:1.25 }}>{selected.title}</h3>
                   <p style={{ color:'rgba(168,192,158,0.55)', fontSize:'0.82rem', lineHeight:1.7, marginBottom:'1.5rem' }}>{selected.description}</p>
                   <div style={{ borderTop:'1px solid rgba(92,122,82,0.2)', paddingTop:'1.2rem', display:'flex', flexDirection:'column', gap:'0.5rem', marginBottom:'1.2rem' }}>
+<<<<<<< HEAD
                     {[['Duration',`${selected.duration} min`],...pickedChoices.map((c, i) => [groupsOf(selected)[i]?.label ?? 'Choice', c.label]),['Investment', priceLabel(selected, pickedChoices)]].map(([k,v]) => (
+=======
+                    {[['Duration',`${selected.duration} min`],['Investment', selected.price === 0 ? 'Free' : `$${selected.price}`]].map(([k,v]) => (
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
                       <div key={k} style={{ display:'flex', justifyContent:'space-between' }}>
                         <span style={{ fontFamily:'Inter,sans-serif', fontSize:'0.62rem', textTransform:'uppercase', letterSpacing:'0.1em', color:'var(--forest-300)' }}>{k}</span>
                         <span style={{ fontFamily:'Inter,sans-serif', fontSize:'0.82rem', color:'var(--parchment)', fontWeight: k==='Investment' ? 600 : 400 }}>{v}</span>
@@ -288,7 +331,11 @@ export default function BookClient({ services }: { services: ServiceDoc[] }) {
                     <h3 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.4rem', fontWeight:300, color:'var(--forest-800)' }}>Choose a date and time</h3>
                   </div>
                   <div style={{ padding:'1rem' }}>
+<<<<<<< HEAD
                     <CalEmbed calSlug={effectiveCalSlug} notes={bookingNotes} onBooked={() => setStep('confirmed')} />
+=======
+                    <CalEmbed calSlug={selected.calSlug || selected.slug} onBooked={() => setStep('confirmed')} />
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
                   </div>
                 </div>
               </div>

@@ -1,5 +1,8 @@
 import { NextRequest } from 'next/server'
+<<<<<<< HEAD
 import { revalidatePath } from 'next/cache'
+=======
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
 import { getServerSession } from 'next-auth'
 import { authOptions }  from '@/lib/auth'
 import { connectDB }    from '@/lib/mongoose'
@@ -20,7 +23,10 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   await connectDB()
   const service = await Service.findByIdAndUpdate(id, parsed.data, { new: true }).lean()
   if (!service) return apiError('Not found', 404)
+<<<<<<< HEAD
   refreshPublicPages()
+=======
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
   return apiSuccess(serialize(service))
 }
 
@@ -31,9 +37,14 @@ export async function DELETE(_: NextRequest, { params }: { params: Promise<{ id:
   const { id } = await params
   await connectDB()
   await Service.findByIdAndDelete(id)
+<<<<<<< HEAD
   refreshPublicPages()
   return apiSuccess({ deleted: true })
 }
 
 // Prices/options shown on public pages come from services, so refresh them right away.
 function refreshPublicPages() { revalidatePath('/book'); revalidatePath('/offerings') }
+=======
+  return apiSuccess({ deleted: true })
+}
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86

@@ -2,7 +2,10 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import type { ServiceDoc } from '@/types'
+<<<<<<< HEAD
 import { DEFAULT_SERVICE_PRICES } from '@/lib/siteContent.defaults'
+=======
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
 
 export default function AdminServices() {
   const [services, setServices] = useState<ServiceDoc[]>([])
@@ -15,6 +18,7 @@ export default function AdminServices() {
       .catch(() => setLoading(false))
   }, [])
 
+<<<<<<< HEAD
   // Services that match a known offering but still have price 0
   const unpriced = services.filter(s => s.price === 0 && DEFAULT_SERVICE_PRICES[s.slug] !== undefined)
   const [applying, setApplying] = useState(false)
@@ -29,6 +33,8 @@ export default function AdminServices() {
     setApplying(false)
   }
 
+=======
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
   const toggle = async (id: string, isActive: boolean) => {
     await fetch(`/api/services/${id}`, {
       method: 'PUT',
@@ -56,6 +62,7 @@ export default function AdminServices() {
         <Link href="/admin/services/new" className="btn btn-forest" style={{ fontSize:'0.65rem' }}>+ New Service</Link>
       </div>
 
+<<<<<<< HEAD
       {unpriced.length > 0 && (
         <div style={{ background:'#fffbea', border:'1px solid #f3e3a1', padding:'1rem 1.4rem', marginBottom:'1.5rem', display:'flex', justifyContent:'space-between', alignItems:'center', gap:'1rem', flexWrap:'wrap' }}>
           <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.8rem', color:'var(--text-body)', lineHeight:1.6 }}>
@@ -68,6 +75,8 @@ export default function AdminServices() {
         </div>
       )}
 
+=======
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
       {loading ? (
         <div style={{ padding:'3rem', fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.2rem', fontStyle:'italic', color:'var(--text-ghost)' }}>Loading…</div>
       ) : services.length === 0 ? (
@@ -99,7 +108,11 @@ export default function AdminServices() {
                 <div style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.2rem', fontWeight:300, color:'var(--forest-800)', marginBottom:'0.2rem' }}>{s.title}</div>
                 <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.72rem', color:'var(--text-muted)' }}>
                   {s.duration} min
+<<<<<<< HEAD
                   {s.price > 0 ? ` · $${s.price}` : ' · no price set'}
+=======
+                  {s.price > 0 ? ` · $${s.price}` : ' · Free'}
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
                   {s.calSlug && <span style={{ color:'var(--forest-300)', marginLeft:'0.5rem' }}>cal: {s.calSlug}</span>}
                 </div>
               </div>

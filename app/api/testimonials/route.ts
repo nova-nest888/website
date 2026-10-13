@@ -1,5 +1,8 @@
 import { NextRequest } from 'next/server'
+<<<<<<< HEAD
 import { revalidatePath } from 'next/cache'
+=======
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
 import { getServerSession } from 'next-auth'
 import { authOptions }       from '@/lib/auth'
 import { connectDB }         from '@/lib/mongoose'
@@ -26,6 +29,9 @@ export async function POST(req: NextRequest) {
 
   await connectDB()
   const item = await Testimonial.create(parsed.data)
+<<<<<<< HEAD
   revalidatePath('/')
+=======
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
   return apiSuccess(serialize(item), 201)
 }

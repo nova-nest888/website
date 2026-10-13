@@ -6,10 +6,15 @@ import RevealWrapper from '@/components/ui/RevealWrapper'
 import ImageUpload from '@/components/ui/ImageUpload'
 import Media from '@/components/ui/Media'
 import { saveSiteImage } from '@/lib/saveSiteImage'
+<<<<<<< HEAD
 import type { AboutContent } from '@/lib/siteContent.defaults'
 
 export default function AboutClient({ siteImages, content: c }: { siteImages: Record<string, string>; content: AboutContent }) {
   const num = (i: number) => String(i + 1).padStart(2, '0')
+=======
+
+export default function AboutClient({ siteImages }: { siteImages: Record<string, string> }) {
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
   const [portrait, setPortrait] = useState<string | null>(siteImages['about-portrait'] ?? null)
   const { data: session } = useSession()
   const isAdmin = !!session
@@ -27,15 +32,26 @@ export default function AboutClient({ siteImages, content: c }: { siteImages: Re
           <div className="nn-rg" style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'5rem', alignItems:'end' }}>
             <div>
               <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.6rem', fontWeight:600, letterSpacing:'0.22em', textTransform:'uppercase', color:'rgba(168,192,158,0.4)', marginBottom:'2rem' }}>
+<<<<<<< HEAD
                 {c.header.eyebrow}
               </div>
               <h1 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'clamp(2.6rem,6vw,5rem)', fontWeight:300, color:'var(--parchment)', lineHeight:1.05, letterSpacing:'-0.02em' }}>
                 {c.header.headline.split('\n').map((line, li, arr) => (<span key={li}>{line}{li < arr.length - 1 && <br/>}</span>))}
+=======
+                How it started
+              </div>
+              <h1 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'clamp(2.6rem,6vw,5rem)', fontWeight:300, color:'var(--parchment)', lineHeight:1.05, letterSpacing:'-0.02em' }}>
+                A backyard, eleven<br/>people, and a very<br/>ordinary Tuesday.
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
               </h1>
             </div>
             <div style={{ paddingBottom:'0.5rem' }}>
               <p style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.2rem', fontWeight:300, fontStyle:'italic', color:'rgba(200,217,195,0.65)', lineHeight:1.7 }}>
+<<<<<<< HEAD
                 {c.header.quote}
+=======
+                "We didn't set out to build a company. We just wanted our Tuesdays back."
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
               </p>
             </div>
           </div>
@@ -49,6 +65,7 @@ export default function AboutClient({ siteImages, content: c }: { siteImages: Re
             <div>
               <RevealWrapper>
                 <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.6rem', fontWeight:600, letterSpacing:'0.2em', textTransform:'uppercase', color:'var(--text-ghost)', marginBottom:'0.5rem' }}>
+<<<<<<< HEAD
                   {c.story.label}
                 </div>
                 <p style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.5rem', fontWeight:300, color:'var(--forest-700)', lineHeight:1.5, marginBottom:'3rem', fontStyle:'italic' }}>
@@ -59,6 +76,44 @@ export default function AboutClient({ siteImages, content: c }: { siteImages: Re
               {c.story.chapters.map((chap, i) => { const ch = { ...chap, n: num(i), t: chap.title }; return (
                 <RevealWrapper key={ch.n} delay={i*40}>
                   <div style={{ marginBottom:'2.2rem', paddingBottom:'2.2rem', borderBottom: i < c.story.chapters.length - 1 ? '1px solid var(--border)' : 'none' }}>
+=======
+                  Our story
+                </div>
+                <p style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.5rem', fontWeight:300, color:'var(--forest-700)', lineHeight:1.5, marginBottom:'3rem', fontStyle:'italic' }}>
+                  "What if clarity lives somewhere between laughter, connection, and nature?"
+                </p>
+              </RevealWrapper>
+
+              {[
+                {
+                  n:'01', t:'Before NovaNest', hook:'Somewhere along the way, life got busy.', kind:'para',
+                  body:"Calendars filled up. Weekends became recovery time. We stayed connected online, but often felt disconnected from ourselves, nature, and each other.",
+                },
+                {
+                  n:'02', t:'The Question', hook:'What if growth could feel different?', kind:'para',
+                  body:"Maybe people didn't need another lecture, course, or productivity hack. Maybe they simply needed a different kind of experience.\n\nSo we started creating the spaces we wished existed.",
+                },
+                {
+                  n:'03', t:'We Started Experimenting', hook:'Nature. Movement. Conversations. Music. Stillness. Play.', kind:'para',
+                  body:"We brought different things together and watched what happened when people had the space to simply be, explore, and connect.",
+                },
+                {
+                  n:'04', t:'What We Discovered', hook:'It was never really about the activity.', kind:'para',
+                  body:"People remembered the laughter. The unexpected conversations. The feeling of being themselves.\n\nSomething shifted when people moved, explored, created, and connected together.",
+                },
+                {
+                  n:'05', t:'And Then, NovaNest', hook:"That's how NovaNest came to life.", kind:'quote',
+                  body:"Not as a retreat centre.\nNot as another wellness program.",
+                  emphasis:"But as a new way of experiencing growth, connection, and life.",
+                },
+                {
+                  n:'06', t:'Our Philosophy', hook:"Growth doesn't have to be serious.", kind:'para',
+                  body:"We believe people can learn, grow, reconnect, and discover something new about themselves.",
+                },
+              ].map((ch, i) => (
+                <RevealWrapper key={ch.n} delay={i*40}>
+                  <div style={{ marginBottom:'2.2rem', paddingBottom:'2.2rem', borderBottom: i < 5 ? '1px solid var(--border)' : 'none' }}>
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
                     <div style={{ display:'flex', gap:'1.4rem', alignItems:'baseline' }}>
                       <div style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1rem', fontStyle:'italic', color:'var(--gold)', flexShrink:0 }}>{ch.n}</div>
                       <div style={{ flex:1 }}>
@@ -67,7 +122,11 @@ export default function AboutClient({ siteImages, content: c }: { siteImages: Re
                             {ch.t}
                           </div>
                         )}
+<<<<<<< HEAD
                         {ch.hook && (
+=======
+                        {'hook' in ch && ch.hook && (
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
                           <p style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.2rem', fontWeight:400, color:'var(--forest-800)', lineHeight:1.4, marginBottom:'0.8rem' }}>
                             {ch.hook}
                           </p>
@@ -85,7 +144,11 @@ export default function AboutClient({ siteImages, content: c }: { siteImages: Re
                             </p>
                           ))
                         )}
+<<<<<<< HEAD
                         {ch.emphasis && (
+=======
+                        {'emphasis' in ch && ch.emphasis && (
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
                           <p style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.15rem', fontWeight:500, fontStyle:'italic', color:'var(--forest-700)', lineHeight:1.5, marginTop:'0.6rem' }}>
                             {ch.emphasis}
                           </p>
@@ -94,12 +157,21 @@ export default function AboutClient({ siteImages, content: c }: { siteImages: Re
                     </div>
                   </div>
                 </RevealWrapper>
+<<<<<<< HEAD
               ) })}
 
               <RevealWrapper delay={280}>
                 <div style={{ display:'flex', gap:'1rem', flexWrap:'wrap', marginTop:'1rem' }}>
                   <Link href="/book" className="btn btn-forest">{c.story.primaryButton}</Link>
                   <Link href="/contact" className="btn btn-outline">{c.story.secondaryButton}</Link>
+=======
+              ))}
+
+              <RevealWrapper delay={280}>
+                <div style={{ display:'flex', gap:'1rem', flexWrap:'wrap', marginTop:'1rem' }}>
+                  <Link href="/book" className="btn btn-forest">Join an experience</Link>
+                  <Link href="/contact" className="btn btn-outline">Say hi</Link>
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
                 </div>
               </RevealWrapper>
             </div>
@@ -127,7 +199,11 @@ export default function AboutClient({ siteImages, content: c }: { siteImages: Re
                 )}
                 {/* Caption sits under the photo, not in a box */}
                 <div style={{ marginTop:'1rem', fontFamily:'Inter,sans-serif', fontSize:'0.72rem', color:'var(--text-ghost)', fontStyle:'italic' }}>
+<<<<<<< HEAD
                   {c.portraitCaption}
+=======
+                  Growth doesn't have to be serious.
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
                 </div>
               </div>
             </RevealWrapper>
@@ -141,6 +217,7 @@ export default function AboutClient({ siteImages, content: c }: { siteImages: Re
           <RevealWrapper>
             <div style={{ marginBottom:'4rem' }}>
               <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.6rem', fontWeight:600, letterSpacing:'0.2em', textTransform:'uppercase', color:'rgba(168,192,158,0.35)', marginBottom:'1rem' }}>
+<<<<<<< HEAD
                 {c.pillars.eyebrow}
               </div>
               <h2 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'2.5rem', fontWeight:300, color:'var(--parchment)', lineHeight:1.15 }}>
@@ -148,13 +225,44 @@ export default function AboutClient({ siteImages, content: c }: { siteImages: Re
               </h2>
               <p style={{ fontFamily:'Inter,sans-serif', fontSize:'0.92rem', color:'rgba(168,192,158,0.55)', marginTop:'1rem', maxWidth:'560px', lineHeight:1.7 }}>
                 {c.pillars.intro}
+=======
+                What NovaNest is built on
+              </div>
+              <h2 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'2.5rem', fontWeight:300, color:'var(--parchment)', lineHeight:1.15 }}>
+                Three things, working together.
+              </h2>
+              <p style={{ fontFamily:'Inter,sans-serif', fontSize:'0.92rem', color:'rgba(168,192,158,0.55)', marginTop:'1rem', maxWidth:'560px', lineHeight:1.7 }}>
+                A world where growth feels natural, connection feels genuine, and people don't have to disconnect from life to find themselves — that's the world we're trying to build one Tuesday at a time.
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
               </p>
             </div>
           </RevealWrapper>
 
+<<<<<<< HEAD
           {c.pillars.items.map((it, i) => { const p = { ...it, n: num(i), t: it.title }; return (
             <RevealWrapper key={i} delay={i*80}>
               <div className="nn-rg-timeline" style={{ display:'grid', gridTemplateColumns:'80px 1fr', gap:'3rem', padding:'3.5rem 0', borderBottom: i < c.pillars.items.length - 1 ? '1px solid rgba(61,82,50,0.22)' : 'none', alignItems:'start' }}>
+=======
+          {[
+            {
+              n:'01',
+              t:'Nature',
+              body:"We're not big believers in escaping your life to go find yourself in the woods for ten days. We just think a trail, some fresh air, and a couple of hours away from a screen does something a conference room never will. Nature isn't the backdrop for NovaNest — it's usually where the actual conversation happens.",
+            },
+            {
+              n:'02',
+              t:'Play',
+              body:"Somewhere along the way, personal growth got associated with discipline, discomfort, and sitting cross-legged for an hour. We think that's backwards. Dancing badly in a room full of strangers, laughing until your stomach hurts, getting genuinely competitive over a silly game — that's when people actually let their guard down.",
+            },
+            {
+              n:'03',
+              t:'Community',
+              body:"You can't build real connection in a room full of people trying to network. NovaNest exists because strangers who show up to the same hike, the same circle, the same Friday gathering — again and again — eventually stop being strangers. That's not a happy accident. It's the entire model.",
+            },
+          ].map((p, i) => (
+            <RevealWrapper key={i} delay={i*80}>
+              <div className="nn-rg-timeline" style={{ display:'grid', gridTemplateColumns:'80px 1fr', gap:'3rem', padding:'3.5rem 0', borderBottom: i < 2 ? '1px solid rgba(61,82,50,0.22)' : 'none', alignItems:'start' }}>
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
                 <div style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'4rem', fontWeight:200, color:'var(--forest-600)', lineHeight:1, opacity:0.4, paddingTop:'0.2rem' }}>
                   {p.n}
                 </div>
@@ -164,7 +272,11 @@ export default function AboutClient({ siteImages, content: c }: { siteImages: Re
                 </div>
               </div>
             </RevealWrapper>
+<<<<<<< HEAD
           ) })}
+=======
+          ))}
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
         </div>
       </section>
 
@@ -173,6 +285,7 @@ export default function AboutClient({ siteImages, content: c }: { siteImages: Re
         <div className="container" style={{ maxWidth:'720px' }}>
           <RevealWrapper>
             <div style={{ marginBottom:'3.5rem' }}>
+<<<<<<< HEAD
               <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.6rem', fontWeight:600, letterSpacing:'0.2em', textTransform:'uppercase', color:'var(--text-ghost)', marginBottom:'1rem' }}>{c.timeline.eyebrow}</div>
               <h2 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'2.2rem', fontWeight:300, color:'var(--forest-800)' }}>{c.timeline.heading}</h2>
             </div>
@@ -182,6 +295,22 @@ export default function AboutClient({ siteImages, content: c }: { siteImages: Re
               <div className="nn-rg-timeline" style={{ display:'grid', gridTemplateColumns:'80px 1fr', gap:'2rem', padding:'1.5rem 0', borderBottom: i < c.timeline.items.length - 1 ? '1px solid var(--border)' : 'none' }}>
                 <div style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1rem', fontStyle:'italic', color:'var(--gold)', paddingTop:'3px', textAlign:'right' }}>{item.year}</div>
                 <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.9rem', color:'var(--text-body)', lineHeight:1.65 }}>{item.text}</div>
+=======
+              <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.6rem', fontWeight:600, letterSpacing:'0.2em', textTransform:'uppercase', color:'var(--text-ghost)', marginBottom:'1rem' }}>How we grew</div>
+              <h2 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'2.2rem', fontWeight:300, color:'var(--forest-800)' }}>The path here</h2>
+            </div>
+          </RevealWrapper>
+          {[
+            { year:'Year 1', label:'A WhatsApp group of eleven friends, meeting on Saturday mornings for a hike none of us admitted we needed.' },
+            { year:'Year 2', label:'First real workshop — part nature, part neuroscience, part group circle. Word spread faster than we expected.' },
+            { year:'Year 3', label:'First corporate retreat, for a team of forty that hadn\'t laughed together in longer than anyone wanted to say out loud.' },
+            { year:'Today',  label:'Weekly gatherings, workshops, retreats, and a community that keeps showing up for each other — and for us.' },
+          ].map((item, i) => (
+            <RevealWrapper key={i} delay={i*70}>
+              <div className="nn-rg-timeline" style={{ display:'grid', gridTemplateColumns:'80px 1fr', gap:'2rem', padding:'1.5rem 0', borderBottom: i < 3 ? '1px solid var(--border)' : 'none' }}>
+                <div style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1rem', fontStyle:'italic', color:'var(--gold)', paddingTop:'3px', textAlign:'right' }}>{item.year}</div>
+                <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.9rem', color:'var(--text-body)', lineHeight:1.65 }}>{item.label}</div>
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
               </div>
             </RevealWrapper>
           ))}
@@ -194,15 +323,23 @@ export default function AboutClient({ siteImages, content: c }: { siteImages: Re
           <RevealWrapper>
             <div style={{ marginBottom:'4rem', maxWidth:'620px' }}>
               <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.6rem', fontWeight:600, letterSpacing:'0.2em', textTransform:'uppercase', color:'rgba(168,192,158,0.35)', marginBottom:'1rem' }}>
+<<<<<<< HEAD
                 {c.audience.eyebrow}
               </div>
               <h2 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'2.4rem', fontWeight:300, color:'var(--parchment)', lineHeight:1.2 }}>
                 {c.audience.heading}
+=======
+                Who this is actually for
+              </div>
+              <h2 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'2.4rem', fontWeight:300, color:'var(--parchment)', lineHeight:1.2 }}>
+                Probably you, if any of this sounds familiar.
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
               </h2>
             </div>
           </RevealWrapper>
           <div className="nn-rg" style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'5rem' }}>
             <RevealWrapper delay={70}>
+<<<<<<< HEAD
               <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.62rem', fontWeight:600, letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--gold-light)', marginBottom:'1.5rem' }}>{c.audience.peopleLabel}</div>
               {c.audience.people.map((t, i) => (
                 <div key={i} style={{ fontSize:'0.92rem', color:'rgba(200,217,195,0.68)', lineHeight:1.7, paddingBottom:'1rem', marginBottom:'1rem', borderBottom: i < c.audience.people.length - 1 ? '1px solid rgba(92,122,82,0.2)' : 'none' }}>{t}</div>
@@ -215,6 +352,31 @@ export default function AboutClient({ siteImages, content: c }: { siteImages: Re
               ))}
               <Link href="/contact" className="btn btn-outline" style={{ marginTop:'1.5rem', borderColor:'rgba(92,122,82,0.4)', color:'var(--forest-200)' }}>
                 {c.audience.teamsButton}
+=======
+              <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.62rem', fontWeight:600, letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--gold-light)', marginBottom:'1.5rem' }}>For people</div>
+              {[
+                'Feel stuck in routine and want something different, without quitting their job to go find it.',
+                'Want real connection, minus the awkward networking event energy.',
+                'Are curious about mindfulness but bounce off anything that feels like homework.',
+                'Feel ambitious but quietly overwhelmed, most weeks.',
+                'Learn better by doing something than by being told about it.',
+                'Believe growth can actually be fun.',
+              ].map((t, i) => (
+                <div key={i} style={{ fontSize:'0.92rem', color:'rgba(200,217,195,0.68)', lineHeight:1.7, paddingBottom:'1rem', marginBottom:'1rem', borderBottom: i < 5 ? '1px solid rgba(92,122,82,0.2)' : 'none' }}>{t}</div>
+              ))}
+            </RevealWrapper>
+            <RevealWrapper delay={140}>
+              <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.62rem', fontWeight:600, letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--gold-light)', marginBottom:'1.5rem' }}>For teams and organizations</div>
+              {[
+                'Want a stronger team, not another trust-fall exercise.',
+                'Want connection that outlasts the offsite.',
+                'Want an experience people are still talking about a year later.',
+              ].map((t, i) => (
+                <div key={i} style={{ fontSize:'0.92rem', color:'rgba(200,217,195,0.68)', lineHeight:1.7, paddingBottom:'1rem', marginBottom:'1rem', borderBottom: i < 2 ? '1px solid rgba(92,122,82,0.2)' : 'none' }}>{t}</div>
+              ))}
+              <Link href="/contact" className="btn btn-outline" style={{ marginTop:'1.5rem', borderColor:'rgba(92,122,82,0.4)', color:'var(--forest-200)' }}>
+                Plan a team retreat
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
               </Link>
             </RevealWrapper>
           </div>

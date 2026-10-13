@@ -6,7 +6,11 @@ import type { PhotoDoc } from '@/types'
 import Media from '@/components/ui/Media'
 
 export const metadata: Metadata = { title: 'Gallery' }
+<<<<<<< HEAD
 export const revalidate = 60
+=======
+export const revalidate = 3600
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
 
 async function getPhotos(): Promise<PhotoDoc[]> {
   try {

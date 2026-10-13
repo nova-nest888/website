@@ -44,9 +44,12 @@ export default function Footer() {
           <div>
             <div className="overline" style={{ color:'var(--forest-300)', marginBottom:'1.2rem' }}>Connect</div>
             <a href="https://instagram.com/novanest_777" target="_blank" rel="noopener" style={{ display:'block', fontFamily:'Inter,sans-serif', fontSize:'0.83rem', color:'rgba(168,192,158,0.55)', textDecoration:'none', marginBottom:'0.5rem' }}>Instagram @novanest_777</a>
+<<<<<<< HEAD
             <a href="mailto:novanest888@gmail.com" style={{ display:'block', fontFamily:'Inter,sans-serif', fontSize:'0.83rem', color:'rgba(168,192,158,0.55)', textDecoration:'none', marginBottom:'0.5rem' }}>novanest888@gmail.com</a>
             <a href="https://wa.me/9779803250763" target="_blank" rel="noopener" style={{ display:'block', fontFamily:'Inter,sans-serif', fontSize:'0.83rem', color:'rgba(168,192,158,0.55)', textDecoration:'none', marginBottom:'0.5rem' }}>WhatsApp +977 9803250763</a>
             <a href="https://wa.me/9779767998966" target="_blank" rel="noopener" style={{ display:'block', fontFamily:'Inter,sans-serif', fontSize:'0.83rem', color:'rgba(168,192,158,0.55)', textDecoration:'none', marginBottom:'0.5rem' }}>WhatsApp +977 9767998966</a>
+=======
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
             <Link href="/book" className="btn btn-outline" style={{ marginTop:'1.5rem', borderColor:'rgba(92,122,82,0.4)', color:'var(--forest-200)', fontSize:'0.62rem', padding:'0.65rem 1.2rem' }}>
               Book Now
             </Link>

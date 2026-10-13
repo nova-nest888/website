@@ -9,8 +9,11 @@ const NAV = [
   { href:'/admin/bookings',           label:'Bookings',     icon:'◈' },
   { href:'/admin/availability',       label:'Availability', icon:'▷' },
   { href:'/admin/services',           label:'Services',     icon:'◇' },
+<<<<<<< HEAD
   { href:'/admin/prices',             label:'Prices',       icon:'$' },
   { href:'/admin/content',            label:'Site Content', icon:'✎' },
+=======
+>>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
   { href:'/admin/posts',              label:'Journal',      icon:'○' },
   { href:'/admin/testimonials',       label:'Testimonials', icon:'◉' },
   { href:'/admin/gallery',            label:'Gallery',      icon:'▦' },
