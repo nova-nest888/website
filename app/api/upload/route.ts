@@ -18,11 +18,7 @@ function configureCloudinary() {
   cloudinary.config({ cloud_name, api_key, api_secret })
 }
 
-<<<<<<< HEAD
 const MAX_IMAGE_BYTES = 4 * 1024 * 1024    // legacy route; Vercel caps bodies at ~4.5MB
-=======
-const MAX_IMAGE_BYTES = 10 * 1024 * 1024   // 10MB
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
 const MAX_VIDEO_BYTES = 100 * 1024 * 1024  // 100MB
 
 // POST /api/upload — admin only. Receives a file, uploads it to Cloudinary
@@ -48,11 +44,7 @@ export async function POST(req: NextRequest) {
   const isVideo = file.type.startsWith('video/')
   const isImage = file.type.startsWith('image/')
   if (!isVideo && !isImage) return apiError('Please choose an image or video file.')
-<<<<<<< HEAD
   if (isImage && file.size > MAX_IMAGE_BYTES) return apiError('Image is larger than 4MB for this route — the admin uploader normally compresses automatically.')
-=======
-  if (isImage && file.size > MAX_IMAGE_BYTES) return apiError('Image is larger than 10MB — please choose a smaller file.')
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
   if (isVideo && file.size > MAX_VIDEO_BYTES) return apiError('Video is larger than 100MB — please choose a smaller file.')
 
   const folder = (form?.get('folder') as string) || 'novanest'

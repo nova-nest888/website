@@ -35,7 +35,6 @@ export const postSchema = z.object({
 })
 
 // ─── Service ───────────────────────────────────────────────────────────────────
-<<<<<<< HEAD
 const optionChoiceSchema = z.object({
   label:       z.string().min(1).max(80),
   description: z.string().max(200).optional().default(''),
@@ -47,8 +46,6 @@ const optionGroupSchema = z.object({
   choices: z.array(optionChoiceSchema).min(2, 'Each option question needs at least 2 choices').max(8),
 })
 
-=======
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
 export const serviceSchema = z.object({
   title:       z.string().min(1).max(200),
   slug:        z.string().min(1).max(200).regex(/^[a-z0-9-]+$/, 'Slug must be lowercase letters, numbers, hyphens'),
@@ -57,10 +54,7 @@ export const serviceSchema = z.object({
   price:       z.number().min(0),
   category:    z.enum(['Nature','Movement','Presence','Growth','Immersion','Community']),
   calSlug:     z.string().max(200).default(''),
-<<<<<<< HEAD
   optionGroups: z.array(optionGroupSchema).max(5).default([]),
-=======
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
   isActive:    z.boolean().default(true),
 })
 

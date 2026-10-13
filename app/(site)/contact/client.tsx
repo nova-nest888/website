@@ -54,19 +54,13 @@ export default function ContactClient() {
               </h2>
               {[
                 { label:'Instagram',          value:'@novanest_777',          href:'https://instagram.com/novanest_777' },
-<<<<<<< HEAD
                 { label:'Email',              value:'novanest888@gmail.com',  href:'mailto:novanest888@gmail.com' },
                 { label:'Phone / WhatsApp',   value:'+977 9803250763 / +977 9767998966', href:null, phones:[['+977 9803250763','9779803250763'],['+977 9767998966','9779767998966']] },
-=======
-                { label:'Email',              value:'***YOUR EMAIL***',        href:null },
-                { label:'Phone / WhatsApp',   value:'***YOUR PHONE***',        href:null },
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
                 { label:'Location',           value:'***YOUR CITY, COUNTRY***',href:null },
                 { label:'Gatherings',         value:'***In-person · Virtual · Both?***', href:null },
               ].map(item => (
                 <div key={item.label} style={{ marginBottom:'1.5rem', paddingBottom:'1.5rem', borderBottom:'1px solid var(--border)' }}>
                   <div className="overline" style={{ marginBottom:'0.3rem' }}>{item.label}</div>
-<<<<<<< HEAD
                   {'phones' in item && item.phones
                     ? <div style={{ display:'flex', flexDirection:'column', gap:'0.3rem' }}>
                         {item.phones.map(([label, num]) => (
@@ -74,9 +68,6 @@ export default function ContactClient() {
                         ))}
                       </div>
                     : item.href
-=======
-                  {item.href
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
                     ? <a href={item.href} target="_blank" rel="noopener" style={{ fontFamily:'Inter,sans-serif', fontSize:'0.92rem', color:'var(--forest-600)', textDecoration:'none', fontWeight:500 }}>{item.value}</a>
                     : <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.92rem', color:'var(--text-body)' }}>{item.value}</div>
                   }

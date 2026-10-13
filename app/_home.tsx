@@ -7,16 +7,7 @@ import Media from '@/components/ui/Media'
 import type { TestimonialDoc } from '@/types'
 import { uploadToCloudinary } from '@/lib/cloudinary'
 import { saveSiteImage } from '@/lib/saveSiteImage'
-<<<<<<< HEAD
 import type { HomeContent } from '@/lib/siteContent.defaults'
-=======
-
-const FALLBACK_TESTIMONIALS = [
-  { id:'1', name:'Mina Rawat',     role:'Moment during village trip',              content:"The local raksi tasted even better when I tasted it mindfully." },
-  { id:'2', name:'Preeti Thapa',   role:'Moment during the cultural experience',   content:"For the first time in years I laughed that hard with people I'd met an hour earlier. Didn't see that coming." },
-  { id:'3', name:'Prashant Kuwar', role:'Moment during Bonfire',                   content:"Our team hadn't actually talked — not about anything real — in over a year. This retreat cracked that open in a day." },
-]
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
 
 // Shown until an admin uploads a real photo from a NovaNest gathering.
 // Verified working, free-to-use, no attribution required (Unsplash License).
@@ -24,22 +15,14 @@ const FALLBACK_TESTIMONIALS = [
 // community" feeling of NovaNest than an empty landscape shot.
 const DEFAULT_HERO_IMAGE = 'https://images.unsplash.com/photo-1548939201-7aabcd8f9566?fm=jpg&q=80&w=2400&auto=format&fit=crop'
 
-<<<<<<< HEAD
 export default function HomeClient({ testimonials, siteImages, content: c }: { testimonials: TestimonialDoc[]; siteImages: Record<string, string>; content: HomeContent }) {
-=======
-export default function HomeClient({ testimonials, siteImages }: { testimonials: TestimonialDoc[]; siteImages: Record<string, string> }) {
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
   const [heroImg, setHeroImg]   = useState<string | null>(siteImages['hero'] ?? DEFAULT_HERO_IMAGE)
   const [uploading, setUploading] = useState(false)
   const [uploadError, setUploadError] = useState('')
   const { data: session } = useSession()
   const isAdmin = !!session
-<<<<<<< HEAD
   // Testimonials come only from Admin → Testimonials (no hardcoded fallback)
   const showTestimonials = testimonials
-=======
-  const showTestimonials = testimonials.length > 0 ? testimonials : FALLBACK_TESTIMONIALS
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
 
   const handleHeroFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -105,7 +88,6 @@ export default function HomeClient({ testimonials, siteImages }: { testimonials:
 
         <div className="container" style={{ position:'relative', zIndex:5, paddingTop:'7rem', paddingBottom:'6rem' }}>
           <div style={{ maxWidth:'800px' }}>
-<<<<<<< HEAD
             <div className="overline" style={{ color:'var(--gold-light)', marginBottom:'1.8rem', animation:'fadeUp 0.8s ease both' }}>{c.hero.eyebrow}</div>
             <h1 className="display" style={{ color:'var(--parchment)', marginBottom:'1.5rem', animation:'fadeUp 0.8s 0.1s ease both' }}>
               {c.hero.line1}<br/>{c.hero.line2}<br/><em style={{ color:'var(--forest-200)' }}>{c.hero.emphasis}</em>
@@ -116,18 +98,6 @@ export default function HomeClient({ testimonials, siteImages }: { testimonials:
             <div style={{ display:'flex', gap:'1rem', flexWrap:'wrap', animation:'fadeUp 0.8s 0.3s ease both' }}>
               <Link href="/book" className="btn btn-parchment">{c.hero.primaryButton}</Link>
               <Link href="/offerings" className="btn btn-light">{c.hero.secondaryButton}</Link>
-=======
-            <div className="overline" style={{ color:'var(--gold-light)', marginBottom:'1.8rem', animation:'fadeUp 0.8s ease both' }}>A New Way of Living</div>
-            <h1 className="display" style={{ color:'var(--parchment)', marginBottom:'1.5rem', animation:'fadeUp 0.8s 0.1s ease both' }}>
-              What if clarity lives<br/>somewhere between<br/><em style={{ color:'var(--forest-200)' }}>laughter and nature?</em>
-            </h1>
-            <p style={{ color:'rgba(200,217,195,0.72)', fontSize:'1.08rem', lineHeight:1.8, maxWidth:'500px', marginBottom:'2.8rem', fontFamily:'Inter,sans-serif', animation:'fadeUp 0.8s 0.2s ease both' }}>
-              NovaNest is a community-driven experience company creating spaces to pause, play, explore, connect, and see life a little differently — through outdoor adventures, creative workshops, spiritual experiences, gatherings, and retreats.
-            </p>
-            <div style={{ display:'flex', gap:'1rem', flexWrap:'wrap', animation:'fadeUp 0.8s 0.3s ease both' }}>
-              <Link href="/book" className="btn btn-parchment">Find Your Experience</Link>
-              <Link href="/offerings" className="btn btn-light">See What We Do</Link>
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
             </div>
           </div>
         </div>
@@ -145,43 +115,22 @@ export default function HomeClient({ testimonials, siteImages }: { testimonials:
           <div className="nn-rg" style={{ display:'grid', gridTemplateColumns:'1.4fr 1fr', gap:'7rem', alignItems:'start' }}>
             <RevealWrapper>
               <p style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'clamp(1.5rem,3vw,2.2rem)', fontWeight:300, color:'var(--forest-700)', lineHeight:1.5, marginBottom:'2rem', fontStyle:'italic' }}>
-<<<<<<< HEAD
                 {c.intro.quote}
               </p>
               <p style={{ marginBottom:'2.5rem', fontSize:'1rem' }}>
                 {c.intro.paragraph}
               </p>
               <Link href="/about" className="btn btn-outline">{c.intro.button}</Link>
-=======
-                "Growth doesn't have to be serious."
-              </p>
-              <p style={{ marginBottom:'2.5rem', fontSize:'1rem' }}>
-                NovaNest is a community-driven experience company creating playful indoor and outdoor experiences that bring people closer to themselves, to others, and to nature. From weekly gatherings and hikes to neuroscience workshops and immersive retreats, we create experiences that replace routine with curiosity, pressure with play, and small talk with genuine connection — helping people leave feeling lighter, clearer, and more alive.
-              </p>
-              <Link href="/about" className="btn btn-outline">Read our story</Link>
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
             </RevealWrapper>
 
             {/* Right column — deliberate uneven list, not 4 perfect items */}
             <RevealWrapper delay={140}>
               <div style={{ paddingTop:'1rem' }}>
                 <div style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.4rem', fontWeight:300, fontStyle:'italic', color:'var(--forest-700)', marginBottom:'2rem', lineHeight:1.3 }}>
-<<<<<<< HEAD
                   {c.intro.sideHeading}
                 </div>
                 {c.intro.moments.map((item, i) => (
                   <div key={i} style={{ marginBottom:'2rem', paddingBottom:'2rem', borderBottom: i < c.intro.moments.length - 1 ? '1px solid var(--border)' : 'none' }}>
-=======
-                  Here's what surprises most people.
-                </div>
-                {[
-                  { tag:'Arrival', heading:'You arrive wondering if you\'ll fit in.', body:'Most people come alone — or know just one person. Somewhere between the trail, the tea, and the conversations, strangers quietly become familiar.' },
-                  { tag:'Phone', heading:'You forget your phone exists.', body:'Not because anyone asks you to put it away. Because the people, the place, and the moment become more interesting than your screen.' },
-                  { tag:'Self Discovery', heading:'You discover things about yourself by doing, not just thinking.', body:'Whether you\'re moving, creating, or simply being present, the insights tend to arrive when you\'re not chasing them.' },
-                  { tag:'Leaving', heading:'You leave lighter than you arrived.', body:'Sometimes it\'s a new friend. Sometimes it\'s a fresh perspective. Sometimes it\'s simply remembering how good it feels to be yourself.' },
-                ].map((item, i) => (
-                  <div key={i} style={{ marginBottom:'2rem', paddingBottom:'2rem', borderBottom: i < 3 ? '1px solid var(--border)' : 'none' }}>
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
                     <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.62rem', fontWeight:600, letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--gold-dark)', marginBottom:'0.5rem' }}>
                       {item.tag}
                     </div>
@@ -192,11 +141,7 @@ export default function HomeClient({ testimonials, siteImages }: { testimonials:
                   </div>
                 ))}
                 <p style={{ fontFamily:'Inter,sans-serif', fontSize:'0.75rem', fontStyle:'italic', color:'var(--text-ghost)', lineHeight:1.7, marginTop:'0.5rem' }}>
-<<<<<<< HEAD
                   {c.intro.sideNote}
-=======
-                  No two NovaNest experiences are exactly the same. But these are the moments people talk about long after they're over.
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
                 </p>
               </div>
             </RevealWrapper>
@@ -209,11 +154,7 @@ export default function HomeClient({ testimonials, siteImages }: { testimonials:
         <div className="container">
           {/* Label sits above — no overline treatment */}
           <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.6rem', fontWeight:600, letterSpacing:'0.25em', textTransform:'uppercase', color:'rgba(168,192,158,0.4)', marginBottom:'3.5rem' }}>
-<<<<<<< HEAD
             {c.expect.label}
-=======
-            Expect
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
           </div>
           {/* Intentionally 3 + 1 layout — not a perfect 4 grid */}
           <div className="nn-rg3" style={{ display:'grid', gridTemplateColumns:'1.5fr 1fr 1fr', gap:'0' }}>
@@ -223,31 +164,19 @@ export default function HomeClient({ testimonials, siteImages }: { testimonials:
                     <path d="M12 22c0-5 0-9 2-12 2-3 5-4 8-4 0 3-1 6-4 8-3 2-6 2-6 2"/>
                     <path d="M12 22c0-4 0-7-1.5-9.5C9 10 6.5 9 4 9c0 2.5.5 5 3 6.5S12 17 12 17"/>
                   </svg>
-<<<<<<< HEAD
                 ), t:c.expect.items[0]?.title ?? '', d:c.expect.items[0]?.text ?? '' },
-=======
-                ), t:'Nature', d:'meets growth.' },
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
               { icon: (
                   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="15.5" cy="4.5" r="1.7"/>
                     <path d="M13 8l2 2 3-1.5M15 10l-1 4-3 2 1 5M15 10l3 1 2 4M11 14L7 15l-1 5"/>
                   </svg>
-<<<<<<< HEAD
                 ), t:c.expect.items[1]?.title ?? '', d:c.expect.items[1]?.text ?? '' },
-=======
-                ), t:'Movement', d:'meets mindfulness.' },
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
               { icon: (
                   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M9 3a3.5 3.5 0 0 0-3.5 3.5c0 .5.1 1 .3 1.4A3 3 0 0 0 4 10.5a3 3 0 0 0 1.7 2.7A3.5 3.5 0 0 0 9 18a3.5 3.5 0 0 0 3.5-3.5v-8A3.5 3.5 0 0 0 9 3Z"/>
                     <path d="M15 3a3.5 3.5 0 0 1 3.5 3.5c0 .5-.1 1-.3 1.4A3 3 0 0 1 20 10.5a3 3 0 0 1-1.7 2.7A3.5 3.5 0 0 1 15 18a3.5 3.5 0 0 1-3.5-3.5v-8A3.5 3.5 0 0 1 15 3Z"/>
                   </svg>
-<<<<<<< HEAD
                 ), t:c.expect.items[2]?.title ?? '', d:c.expect.items[2]?.text ?? '' },
-=======
-                ), t:'Science', d:'meets self-discovery.' },
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
             ].map((item, i) => (
               <RevealWrapper key={i} delay={i*80}>
                 <div className="nn-rg3-item" style={{ borderLeft: i > 0 ? '1px solid rgba(92,122,82,0.2)' : 'none', padding: i===0 ? '2rem 3rem 2rem 0' : '2rem 2.5rem' }}>
@@ -263,13 +192,8 @@ export default function HomeClient({ testimonials, siteImages }: { testimonials:
             <div style={{ borderTop:'1px solid rgba(92,122,82,0.2)', marginTop:'2rem', paddingTop:'2rem', display:'flex', alignItems:'center', gap:'1.5rem' }}>
               <span style={{ fontSize:'1.2rem' }}>✦</span>
               <div>
-<<<<<<< HEAD
                 <span style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.2rem', fontWeight:400, fontStyle:'italic', color:'var(--forest-200)' }}>{c.expect.highlight} </span>
                 <span style={{ fontFamily:'Inter,sans-serif', fontSize:'0.9rem', color:'rgba(168,192,158,0.55)' }}>{c.expect.highlightRest}</span>
-=======
-                <span style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.2rem', fontWeight:400, fontStyle:'italic', color:'var(--forest-200)' }}>Strangers become community </span>
-                <span style={{ fontFamily:'Inter,sans-serif', fontSize:'0.9rem', color:'rgba(168,192,158,0.55)' }}>— and fun meets reflection.</span>
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
               </div>
             </div>
           </RevealWrapper>
@@ -283,19 +207,11 @@ export default function HomeClient({ testimonials, siteImages }: { testimonials:
             <div style={{ marginBottom:'4rem', display:'flex', justifyContent:'space-between', alignItems:'flex-end', flexWrap:'wrap', gap:'1rem' }}>
               <div>
                 <h2 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'clamp(2rem,4vw,3rem)', fontWeight:300, color:'var(--forest-800)', lineHeight:1.1 }}>
-<<<<<<< HEAD
                   {c.ways.title}
                 </h2>
               </div>
               <Link href="/offerings" style={{ fontFamily:'Inter,sans-serif', fontSize:'0.68rem', fontWeight:500, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--forest-500)', textDecoration:'none' }}>
                 {c.ways.linkLabel}
-=======
-                  Ways to join in
-                </h2>
-              </div>
-              <Link href="/offerings" style={{ fontFamily:'Inter,sans-serif', fontSize:'0.68rem', fontWeight:500, letterSpacing:'0.12em', textTransform:'uppercase', color:'var(--forest-500)', textDecoration:'none' }}>
-                See all experiences →
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
               </Link>
             </div>
           </RevealWrapper>
@@ -305,24 +221,15 @@ export default function HomeClient({ testimonials, siteImages }: { testimonials:
             <RevealWrapper>
               <div style={{ background:'var(--forest-700)', padding:'3.5rem', height:'100%' }}>
                 <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.6rem', fontWeight:600, letterSpacing:'0.18em', textTransform:'uppercase', color:'rgba(200,217,195,0.4)', marginBottom:'1.2rem' }}>Nature</div>
-<<<<<<< HEAD
                 <h3 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'2rem', fontWeight:300, color:'var(--parchment)', marginBottom:'1.2rem', lineHeight:1.15 }}>{c.ways.big.title}</h3>
                 <p style={{ color:'rgba(200,217,195,0.65)', fontSize:'0.92rem', lineHeight:1.8, marginBottom:'2rem' }}>
                   {c.ways.big.text}
                 </p>
                 <Link href="/book" className="btn btn-light" style={{ fontSize:'0.62rem' }}>{c.ways.big.button}</Link>
-=======
-                <h3 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'2rem', fontWeight:300, color:'var(--parchment)', marginBottom:'1.2rem', lineHeight:1.15 }}>Nature Experiences</h3>
-                <p style={{ color:'rgba(200,217,195,0.65)', fontSize:'0.92rem', lineHeight:1.8, marginBottom:'2rem' }}>
-                  Guided hikes, nature walks, and outdoor reflection sessions built around noticing the things you don't notice indoors. We also run regular community gatherings outdoors — the best conversations tend to happen when nobody's trying to have one.
-                </p>
-                <Link href="/book" className="btn btn-light" style={{ fontSize:'0.62rem' }}>Book this</Link>
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
               </div>
             </RevealWrapper>
 
             <div style={{ display:'flex', flexDirection:'column', gap:'2px' }}>
-<<<<<<< HEAD
               {c.ways.small.map((o, i) => (
                 <RevealWrapper key={i} delay={80 + i*60}>
                   <Link href={o.href} className="nn-teaser-card" style={{ background: i % 2 === 0 ? 'var(--parchment)' : 'var(--forest-50)', padding:'2.5rem', flex:1, display:'block', textDecoration:'none' }}>
@@ -333,52 +240,20 @@ export default function HomeClient({ testimonials, siteImages }: { testimonials:
                   </Link>
                 </RevealWrapper>
               ))}
-=======
-              <RevealWrapper delay={80}>
-                <Link href="/offerings#sound-healing" className="nn-teaser-card" style={{ background:'var(--parchment)', padding:'2.5rem', flex:1, display:'block', textDecoration:'none' }}>
-                  <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.6rem', fontWeight:600, letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--text-ghost)', marginBottom:'0.8rem' }}>Presence</div>
-                  <h3 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.5rem', fontWeight:300, color:'var(--forest-800)', marginBottom:'0.6rem' }}>Sound &amp; Breathwork</h3>
-                  <p style={{ fontSize:'0.87rem', color:'var(--text-body)', lineHeight:1.75, marginBottom:'0.8rem' }}>Sound healing and breathwork sessions for minds that don't slow down just because someone told them to relax.</p>
-                  <span className="nn-teaser-arrow" style={{ fontFamily:'Inter,sans-serif', fontSize:'0.68rem', fontWeight:600, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--gold-dark)' }}>See this →</span>
-                </Link>
-              </RevealWrapper>
-              <RevealWrapper delay={140}>
-                <Link href="/offerings#movement-expression" className="nn-teaser-card" style={{ background:'var(--forest-50)', padding:'2.5rem', flex:1, display:'block', textDecoration:'none' }}>
-                  <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.6rem', fontWeight:600, letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--text-ghost)', marginBottom:'0.8rem' }}>Movement</div>
-                  <h3 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.5rem', fontWeight:300, color:'var(--forest-800)', marginBottom:'0.6rem' }}>Movement &amp; Expression</h3>
-                  <p style={{ fontSize:'0.87rem', color:'var(--text-body)', lineHeight:1.75, marginBottom:'0.8rem' }}>Somatic sessions, free-form dance, and playful group activities. No steps to learn, no mirrors to check yourself in.</p>
-                  <span className="nn-teaser-arrow" style={{ fontFamily:'Inter,sans-serif', fontSize:'0.68rem', fontWeight:600, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--gold-dark)' }}>See this →</span>
-                </Link>
-              </RevealWrapper>
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
             </div>
           </div>
 
           {/* Second row — 3 equal */}
           <div className="nn-rg3" style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:'2px' }}>
-<<<<<<< HEAD
             {c.ways.row.map((o, i) => (
-=======
-            {[
-              { cat:'Growth', t:'Mind, Brain & Behaviour', d:'NLP, behavioural psychology, and accessible neuroscience — for individuals and teams who learn by doing, not by sitting through slides.', href:'/offerings#mind-brain-behaviour' },
-              { cat:'Immersion',  t:'Retreats',        d:'Weekend retreats, nature retreats, and fully customized team retreats. The thing people keep coming back to, years later.', href:'/offerings#design-your-nepal-experience' },
-              { cat:'Community', t:'Weekly Gatherings',   d:'Regular hikes, circles, and community events. The easiest way to meet people who feel like your people.', href:'/offerings' },
-            ].map((o, i) => (
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
               <RevealWrapper key={i} delay={i*70}>
                 <Link href={o.href} className="nn-teaser-card" style={{ background:'var(--parchment)', padding:'2.5rem', height:'100%', borderLeft:'3px solid transparent', transition:'border-color 0.25s ease', display:'block', textDecoration:'none' }}
                   onMouseEnter={e => (e.currentTarget.style.borderLeftColor='var(--gold)')}
                   onMouseLeave={e => (e.currentTarget.style.borderLeftColor='transparent')}
                 >
-<<<<<<< HEAD
                   <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.6rem', fontWeight:600, letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--text-ghost)', marginBottom:'0.8rem' }}>{o.category}</div>
                   <h3 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.45rem', fontWeight:300, color:'var(--forest-800)', marginBottom:'0.8rem' }}>{o.title}</h3>
                   <p style={{ fontSize:'0.87rem', color:'var(--text-body)', lineHeight:1.75, marginBottom:'0.8rem' }}>{o.text}</p>
-=======
-                  <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.6rem', fontWeight:600, letterSpacing:'0.18em', textTransform:'uppercase', color:'var(--text-ghost)', marginBottom:'0.8rem' }}>{o.cat}</div>
-                  <h3 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.45rem', fontWeight:300, color:'var(--forest-800)', marginBottom:'0.8rem' }}>{o.t}</h3>
-                  <p style={{ fontSize:'0.87rem', color:'var(--text-body)', lineHeight:1.75, marginBottom:'0.8rem' }}>{o.d}</p>
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
                   <span className="nn-teaser-arrow" style={{ fontFamily:'Inter,sans-serif', fontSize:'0.68rem', fontWeight:600, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--gold-dark)' }}>See this →</span>
                 </Link>
               </RevealWrapper>
@@ -388,16 +263,12 @@ export default function HomeClient({ testimonials, siteImages }: { testimonials:
       </section>
 
       {/* ── TESTIMONIALS — different frame, not cards in a grid ── */}
-<<<<<<< HEAD
       {showTestimonials.length > 0 && (
-=======
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
       <section style={{ background:'var(--parchment)', padding:'8rem 0' }}>
         <div className="container">
           <RevealWrapper>
             <div style={{ marginBottom:'5rem' }}>
               <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.62rem', fontWeight:600, letterSpacing:'0.2em', textTransform:'uppercase', color:'var(--text-ghost)', marginBottom:'1.5rem' }}>
-<<<<<<< HEAD
                 {c.testimonials.eyebrow}
               </div>
               <h2 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'clamp(1.6rem,3.5vw,2.8rem)', fontWeight:300, color:'var(--forest-700)', maxWidth:'540px', lineHeight:1.25 }}>
@@ -405,15 +276,6 @@ export default function HomeClient({ testimonials, siteImages }: { testimonials:
               </h2>
               <p style={{ fontFamily:'Inter,sans-serif', fontSize:'0.9rem', color:'var(--text-muted)', maxWidth:'480px', marginTop:'1rem', lineHeight:1.7 }}>
                 {c.testimonials.sub}
-=======
-                What people say
-              </div>
-              <h2 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'clamp(1.6rem,3.5vw,2.8rem)', fontWeight:300, color:'var(--forest-700)', maxWidth:'540px', lineHeight:1.25 }}>
-                The thing about NovaNest is what people <em>take home.</em>
-              </h2>
-              <p style={{ fontFamily:'Inter,sans-serif', fontSize:'0.9rem', color:'var(--text-muted)', maxWidth:'480px', marginTop:'1rem', lineHeight:1.7 }}>
-                Not a certificate. Usually a phone number, a memory, or a sentence they keep repeating to themselves weeks later.
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
               </p>
             </div>
           </RevealWrapper>
@@ -443,10 +305,7 @@ export default function HomeClient({ testimonials, siteImages }: { testimonials:
           ))}
         </div>
       </section>
-<<<<<<< HEAD
       )}
-=======
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
 
       {/* ── CTA — plain, no decorative circles or SVGs ── */}
       <section style={{ background:'var(--forest-800)', padding:'9rem 0' }}>
@@ -454,7 +313,6 @@ export default function HomeClient({ testimonials, siteImages }: { testimonials:
           <RevealWrapper>
             <div style={{ maxWidth:'640px' }}>
               <h2 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'clamp(2rem,4.5vw,3.5rem)', fontWeight:300, color:'var(--parchment)', lineHeight:1.1, marginBottom:'1.5rem' }}>
-<<<<<<< HEAD
                 {c.cta.line1}<br/>
                 <em style={{ color:'var(--forest-200)' }}>{c.cta.emphasis}</em>
               </h2>
@@ -464,17 +322,6 @@ export default function HomeClient({ testimonials, siteImages }: { testimonials:
               <div style={{ display:'flex', gap:'1rem', flexWrap:'wrap' }}>
                 <Link href="/book" className="btn btn-parchment">{c.cta.primaryButton}</Link>
                 <Link href="/contact" className="btn btn-light">{c.cta.secondaryButton}</Link>
-=======
-                Ready to try<br/>
-                <em style={{ color:'var(--forest-200)' }}>a new way of living?</em>
-              </h2>
-              <p style={{ color:'rgba(200,217,195,0.6)', fontSize:'1rem', lineHeight:1.8, maxWidth:'440px', marginBottom:'2.5rem' }}>
-                No experience needed, no gear list, no personality type required. Just show up — the rest tends to sort itself out.
-              </p>
-              <div style={{ display:'flex', gap:'1rem', flexWrap:'wrap' }}>
-                <Link href="/book" className="btn btn-parchment">Reserve Your Spot</Link>
-                <Link href="/contact" className="btn btn-light">Ask a Question First</Link>
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
               </div>
             </div>
           </RevealWrapper>

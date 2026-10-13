@@ -1,8 +1,5 @@
 import { NextRequest } from 'next/server'
-<<<<<<< HEAD
 import { revalidatePath } from 'next/cache'
-=======
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
 import { getServerSession } from 'next-auth'
 import { authOptions }       from '@/lib/auth'
 import { connectDB }         from '@/lib/mongoose'
@@ -23,10 +20,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   await connectDB()
   const item = await Testimonial.findByIdAndUpdate(id, parsed.data, { new: true }).lean()
   if (!item) return apiError('Not found', 404)
-<<<<<<< HEAD
   revalidatePath('/')
-=======
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
   return apiSuccess(serialize(item))
 }
 
@@ -37,9 +31,6 @@ export async function DELETE(_: NextRequest, { params }: { params: Promise<{ id:
   const { id } = await params
   await connectDB()
   await Testimonial.findByIdAndDelete(id)
-<<<<<<< HEAD
   revalidatePath('/')
-=======
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
   return apiSuccess({ deleted: true })
 }

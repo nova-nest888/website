@@ -20,7 +20,6 @@ export interface PhotoDoc {
   updatedAt: string
 }
 
-<<<<<<< HEAD
 export interface ServiceOptionChoice {
   label: string
   description?: string
@@ -36,8 +35,6 @@ export interface ServiceOptionGroup {
   choices: ServiceOptionChoice[]
 }
 
-=======
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
 export interface ServiceDoc {
   _id: string
   id:  string
@@ -48,10 +45,7 @@ export interface ServiceDoc {
   price: number
   category: ServiceCategory
   calSlug: string
-<<<<<<< HEAD
   optionGroups?: ServiceOptionGroup[]
-=======
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
   isActive: boolean
   createdAt: string
   updatedAt: string

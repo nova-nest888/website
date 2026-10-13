@@ -2,10 +2,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import type { TestimonialDoc } from '@/types'
-<<<<<<< HEAD
 import { STARTER_TESTIMONIALS } from '@/lib/siteContent.defaults'
-=======
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
 
 export default function AdminTestimonials() {
   const [items, setItems]     = useState<TestimonialDoc[]>([])
@@ -18,7 +15,6 @@ export default function AdminTestimonials() {
       .catch(() => setLoading(false))
   }, [])
 
-<<<<<<< HEAD
   const [importing, setImporting] = useState(false)
   const importStarters = async () => {
     setImporting(true)
@@ -30,8 +26,6 @@ export default function AdminTestimonials() {
     setImporting(false)
   }
 
-=======
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
   const toggle = async (id: string, isActive: boolean) => {
     await fetch(`/api/testimonials/${id}`, {
       method: 'PATCH',
@@ -65,14 +59,11 @@ export default function AdminTestimonials() {
         <div style={{ background:'white', padding:'4rem', textAlign:'center' }}>
           <p style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.4rem', fontStyle:'italic', color:'var(--text-ghost)', marginBottom:'1.5rem' }}>No testimonials yet.</p>
           <Link href="/admin/testimonials/new" className="btn btn-forest">Add First Testimonial</Link>
-<<<<<<< HEAD
           <div style={{ marginTop:'1.2rem' }}>
             <button onClick={importStarters} disabled={importing} className="btn btn-outline" style={{ fontSize:'0.62rem' }}>
               {importing ? 'Importing…' : 'Import the 3 starter testimonials (then edit or delete them)'}
             </button>
           </div>
-=======
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
         </div>
       ) : (
         <div style={{ display:'flex', flexDirection:'column', gap:'2px' }}>
@@ -102,10 +93,7 @@ export default function AdminTestimonials() {
               </div>
 
               <div style={{ display:'flex', flexDirection:'column', gap:'0.5rem', flexShrink:0, paddingTop:'0.2rem' }}>
-<<<<<<< HEAD
                 <Link href={`/admin/testimonials/${t.id}`} style={{ fontFamily:'Inter,sans-serif', fontSize:'0.62rem', fontWeight:500, letterSpacing:'0.1em', textTransform:'uppercase', color:'var(--forest-500)', textDecoration:'none', padding:'0.3rem 0' }}>Edit</Link>
-=======
->>>>>>> 0535e7cc738eba828f46f7a78b8fc6434e5c1a86
                 <button onClick={() => toggle(t.id, t.isActive)} style={{ fontFamily:'Inter,sans-serif', fontSize:'0.62rem', fontWeight:500, letterSpacing:'0.1em', textTransform:'uppercase', cursor:'pointer', padding:'0.35rem 0.7rem', border:'1.5px solid', borderColor: t.isActive ? 'var(--border-strong)' : 'var(--forest-400)', background:'none', color: t.isActive ? 'var(--text-muted)' : 'var(--forest-600)', transition:'all 0.15s ease' }}>
                   {t.isActive ? 'Hide' : 'Show'}
                 </button>
