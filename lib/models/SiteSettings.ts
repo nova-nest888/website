@@ -12,6 +12,8 @@ import mongoose, { Schema, Document, Model } from 'mongoose'
 export interface ISiteSettings extends Document {
   singleton: string
   images: Record<string, string>
+  /** pageKey -> { enabled, message } — pages shown as "under maintenance" (see lib/maintenance.ts) */
+  maintenance: Record<string, { enabled: boolean; message?: string }>
   createdAt: Date
   updatedAt: Date
 }
@@ -20,6 +22,7 @@ const SiteSettingsSchema = new Schema<ISiteSettings>(
   {
     singleton: { type: String, default: 'main', unique: true },
     images:    { type: Schema.Types.Mixed, default: {} },
+    maintenance: { type: Schema.Types.Mixed, default: {} },
   },
   { timestamps: true }
 )

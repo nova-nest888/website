@@ -4,6 +4,8 @@ import { Photo }     from '@/lib/models/Photo'
 import { serialize } from '@/lib/utils'
 import type { PhotoDoc } from '@/types'
 import Media from '@/components/ui/Media'
+import { getPageMaintenance } from '@/lib/maintenance'
+import MaintenanceNotice from '@/components/ui/MaintenanceNotice'
 
 export const metadata: Metadata = { title: 'Gallery' }
 export const revalidate = 60
@@ -16,6 +18,8 @@ async function getPhotos(): Promise<PhotoDoc[]> {
 }
 
 export default async function GalleryPage() {
+  const maint = await getPageMaintenance('gallery')
+  if (maint.enabled) return <MaintenanceNotice title="Gallery" message={maint.message} />
   const photos = await getPhotos()
 
   return (

@@ -6,6 +6,8 @@ import { serialize, formatDate } from '@/lib/utils'
 import type { PostDoc } from '@/types'
 import { JOURNAL_PLACEHOLDERS } from '@/lib/journalPlaceholders'
 import Media from '@/components/ui/Media'
+import { getPageMaintenance } from '@/lib/maintenance'
+import MaintenanceNotice from '@/components/ui/MaintenanceNotice'
 
 export const metadata: Metadata = { title: 'Journal' }
 export const revalidate = 3600
@@ -18,6 +20,8 @@ async function getPosts(): Promise<PostDoc[]> {
 }
 
 export default async function JournalPage() {
+  const maint = await getPageMaintenance('journal')
+  if (maint.enabled) return <MaintenanceNotice title="Journal" message={maint.message} />
   const posts = await getPosts()
   const display = posts.length > 0 ? posts : JOURNAL_PLACEHOLDERS
   const [featured, ...rest] = display

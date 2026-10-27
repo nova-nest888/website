@@ -7,6 +7,8 @@ import { serialize, formatDate } from '@/lib/utils'
 import type { PostDoc } from '@/types'
 import { JOURNAL_PLACEHOLDERS } from '@/lib/journalPlaceholders'
 import Media from '@/components/ui/Media'
+import { getPageMaintenance } from '@/lib/maintenance'
+import MaintenanceNotice from '@/components/ui/MaintenanceNotice'
 
 export const dynamic = 'force-dynamic'
 
@@ -33,6 +35,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const maint = await getPageMaintenance('journal')
+  if (maint.enabled) return <MaintenanceNotice title="Journal" message={maint.message} />
   const { slug } = await params
   const post = await getPost(slug)
   if (!post) notFound()

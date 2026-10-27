@@ -6,6 +6,8 @@ import { Testimonial } from '@/lib/models/Testimonial'
 import { serialize }   from '@/lib/utils'
 import { getSiteImages } from '@/lib/getSiteImages'
 import { getSiteContent } from '@/lib/getSiteContent'
+import { getPageMaintenance } from '@/lib/maintenance'
+import MaintenanceNotice from '@/components/ui/MaintenanceNotice'
 
 export const metadata: Metadata = { title: 'NovaNest — A New Way of Living' }
 export const revalidate = 300 // ISR: pick up new hero image / testimonials within 5 min
@@ -18,6 +20,8 @@ async function getTestimonials() {
 }
 
 export default async function HomePage() {
+  const maint = await getPageMaintenance('home')
+  if (maint.enabled) return <MaintenanceNotice title="NovaNest" message={maint.message} />
   const [testimonials, siteImages, content] = await Promise.all([getTestimonials(), getSiteImages(), getSiteContent()])
   return <HomeClient testimonials={testimonials} siteImages={siteImages} content={content.home} />
 }

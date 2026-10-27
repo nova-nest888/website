@@ -23,6 +23,36 @@ export default function OfferingsClient({ siteImages, content: c, servicePrices 
     [t.note, (t.prices ?? [])
       .map(pl => { const a = (pl.serviceSlug ? servicePrices[pl.serviceSlug] : undefined) || pl.amount; return a ? `${pl.label} from $${a}` : '' })
       .filter(Boolean).join(' · ')].filter(Boolean).join(' ')
+  // Where each "how you want to feel" suggestion scrolls to. Known wording first, then a loose
+  // match against experience titles/slugs, so admin-edited suggestions keep working.
+  const FEELING_ALIASES: Record<string, string> = {
+    'nature experiences': 'kathmandu-valley-hikes',
+    'hiking adventure': 'kathmandu-valley-hikes',
+    'hiking': 'kathmandu-valley-hikes',
+    'dance': 'movement-expression',
+    'team retreats': 'design-your-nepal-experience',
+    'customized experiences': 'design-your-nepal-experience',
+    'customised experiences': 'design-your-nepal-experience',
+    'reflection sessions': 'mind-brain-behaviour',
+  }
+  const norm = (t: string) => t.toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, ' ').trim()
+  const slugFor = (label: string): string | null => {
+    const n = norm(label)
+    const slugs = new Set(OFFERINGS.map(o => o.slug))
+    const alias = FEELING_ALIASES[n]
+    if (alias && slugs.has(alias)) return alias
+    const exact = OFFERINGS.find(o => norm(o.title) === n || o.slug === n.replace(/ /g, '-'))
+    if (exact) return exact.slug
+    const loose = OFFERINGS.find(o => { const t = norm(o.title); return t.includes(n) || n.includes(t) })
+    return loose ? loose.slug : null
+  }
+  const goTo = (e: React.MouseEvent, slug: string) => {
+    const el = document.getElementById(slug)
+    if (!el) return
+    e.preventDefault()
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    history.replaceState(null, '', `#${slug}`)
+  }
   const [images, setImages] = useState<Record<string, string>>(
     Object.fromEntries(
       Object.entries(siteImages)
@@ -77,17 +107,28 @@ export default function OfferingsClient({ siteImages, content: c, servicePrices 
                   <div style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.3rem', fontWeight:300, fontStyle:'italic', color:'var(--forest-700)', marginBottom:'1.2rem', lineHeight:1.3 }}>
                     {f.prompt}
                   </div>
-                  {f.items.map(item => (
-                    <div key={item} style={{ fontFamily:'Inter,sans-serif', fontSize:'0.85rem', color:'var(--text-body)', lineHeight:1.6, paddingLeft:'0.9rem', borderLeft:'2px solid var(--border)', marginBottom:'0.55rem' }}>
-                      {item}
-                    </div>
-                  ))}
+                  {f.items.map(item => {
+                    const target = slugFor(item)
+                    const boxStyle = { display:'block', fontFamily:'Inter,sans-serif', fontSize:'0.85rem', color:'var(--text-body)', lineHeight:1.6, paddingLeft:'0.9rem', borderLeft:'2px solid var(--border)', marginBottom:'0.55rem', textDecoration:'none' } as const
+                    return target ? (
+                      <a key={item} href={`#${target}`} onClick={e => goTo(e, target)} className="nn-feel-link" style={boxStyle}>
+                        {item}
+                      </a>
+                    ) : (
+                      <div key={item} style={boxStyle}>{item}</div>
+                    )
+                  })}
                 </div>
               </RevealWrapper>
             ))}
           </div>
         </div>
       </section>
+
+      <style>{`
+        .nn-feel-link { cursor: pointer; transition: color .2s ease, border-color .2s ease, padding-left .2s ease; }
+        .nn-feel-link:hover, .nn-feel-link:focus-visible { color: var(--forest-800); border-left-color: var(--gold); padding-left: 1.15rem !important; }
+      `}</style>
 
       {/* Offerings — alternating layout, not a grid of identical cards */}
       <section style={{ background:'var(--parchment)' }}>
