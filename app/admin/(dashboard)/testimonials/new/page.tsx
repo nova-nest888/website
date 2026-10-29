@@ -1,10 +1,11 @@
 'use client'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import ImageUpload from '@/components/ui/ImageUpload'
 
 export default function NewTestimonial() {
   const router  = useRouter()
-  const [form, setForm]     = useState({ name:'', role:'', content:'', rating:5 })
+  const [form, setForm]     = useState({ name:'', role:'', content:'', image:'', rating:5 })
   const [saving, setSaving] = useState(false)
   const [error,  setError]  = useState('')
 
@@ -57,6 +58,15 @@ export default function NewTestimonial() {
           <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.62rem', color:'var(--text-ghost)', marginTop:'0.3rem' }}>
             Quotation marks are added automatically on the site. Write the text without them.
           </div>
+        </div>
+
+        <div>
+          <label className="field-label">Photo (optional)</label>
+          <ImageUpload value={form.image || null} onChange={url => set('image', url)} aspectRatio="4/5" label="Upload photo" allowVideo={false} style={{ maxWidth: 220 }} />
+          <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.62rem', color:'var(--text-ghost)', marginTop:'0.3rem' }}>
+            Shown beside this testimonial on the homepage.
+          </div>
+          {form.image && <button type="button" onClick={() => set('image', '')} style={{ background:'none', border:'none', cursor:'pointer', fontFamily:'Inter,sans-serif', fontSize:'0.66rem', color:'#c0392b', padding:'0.3rem 0' }}>Remove photo</button>}
         </div>
 
         <div>

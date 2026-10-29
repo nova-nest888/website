@@ -72,7 +72,22 @@ export interface OfferingsContent {
   cta: { heading: string; paragraph: string; primaryButton: string; secondaryButton: string }
 }
 
-export interface SiteContent { home: HomeContent; about: AboutContent; offerings: OfferingsContent }
+export interface ContactContent {
+  header: { eyebrow: string; headline: string; paragraph: string }
+  info: {
+    heading: string
+    instagramLabel: string; instagramHandle: string; instagramUrl: string
+    emailLabel: string; email: string
+    phoneLabel: string; phones: { label: string; number: string }[]
+    locationLabel: string; location: string
+    gatheringsLabel: string; gatherings: string
+  }
+  qr: { heading: string; note: string; items: { label: string; url: string; image: string }[] }
+  booking: { text: string; button: string }
+  form: { heading: string; interestOptions: string[]; howOptions: string[] }
+}
+
+export interface SiteContent { home: HomeContent; about: AboutContent; offerings: OfferingsContent; contact: ContactContent }
 export type SiteContentSection = keyof SiteContent
 
 // ─── Home ────────────────────────────────────────────────────────────────────
@@ -308,7 +323,34 @@ export const DEFAULT_OFFERINGS: OfferingsContent = {
   },
 }
 
-export const DEFAULT_CONTENT: SiteContent = { home: DEFAULT_HOME, about: DEFAULT_ABOUT, offerings: DEFAULT_OFFERINGS }
+export const DEFAULT_CONTACT: ContactContent = {
+  header: {
+    eyebrow: 'Get in Touch',
+    headline: 'Contact',
+    paragraph: 'No wrong questions here. Curious about a hike, planning a retreat for your team, or just want to know if this is your kind of thing — say hello.',
+  },
+  info: {
+    heading: "There's no wrong place to start.",
+    instagramLabel: 'Instagram', instagramHandle: '@novanest_777', instagramUrl: 'https://instagram.com/novanest_777',
+    emailLabel: 'Email', email: 'novanest888@gmail.com',
+    phoneLabel: 'Phone / WhatsApp',
+    phones: [
+      { label: '+977 9803250763', number: '9779803250763' },
+      { label: '+977 9767998966', number: '9779767998966' },
+    ],
+    locationLabel: 'Location', location: '***YOUR CITY, COUNTRY***',
+    gatheringsLabel: 'Gatherings', gatherings: '***In-person · Virtual · Both?***',
+  },
+  qr: { heading: 'Scan to follow us', note: '', items: [] },
+  booking: { text: 'Ready to book directly?', button: 'Go to Booking' },
+  form: {
+    heading: 'Send a message',
+    interestOptions: ['Nature Experiences','Movement & Expression','Sound Healing / Breathwork','Mind, Brain & Behaviour','Retreats / Nepal Experience','Corporate / Team Retreat','Just exploring'],
+    howOptions: ['Instagram (@novanest_777)','A friend','Google search','Event or retreat','Other'],
+  },
+}
+
+export const DEFAULT_CONTENT: SiteContent = { home: DEFAULT_HOME, about: DEFAULT_ABOUT, offerings: DEFAULT_OFFERINGS, contact: DEFAULT_CONTACT }
 
 // ─── Other defaults ───────────────────────────────────────────────────────────
 /** Used by the "Apply default prices" button in Admin → Services (only fills services whose price is still 0). */

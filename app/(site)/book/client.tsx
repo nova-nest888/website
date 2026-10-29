@@ -209,10 +209,6 @@ export default function BookClient({ services }: { services: ServiceDoc[] }) {
                   <Link href="/contact" className="btn btn-outline" style={{ fontSize:'0.62rem', padding:'0.65rem 1.2rem' }}>Message First</Link>
                 </div>
               </div>
-
-              <p style={{ fontFamily:'Inter,sans-serif', fontSize:'0.72rem', color:'var(--text-ghost)', marginTop:'1.5rem', lineHeight:1.6 }}>
-                Bookings are powered by Cal.com with live availability. Set <code style={{ background:'var(--parchment-deep)', padding:'0 4px', fontSize:'0.7rem' }}>NEXT_PUBLIC_CAL_USERNAME</code> in your .env to activate the live calendar.
-              </p>
             </div>
           )}
 

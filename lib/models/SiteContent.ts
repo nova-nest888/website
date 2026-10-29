@@ -1,8 +1,8 @@
 import mongoose, { Schema, Document, Model } from 'mongoose'
 
 /**
- * Singleton document holding the admin-edited copy for the Home, About and
- * Offerings pages: data = { home?, about?, offerings? }. A missing section
+ * Singleton document holding the admin-edited copy for the Home, About,
+ * Offerings and Contact pages: data = { home?, about?, offerings?, contact? }. A missing section
  * means "use the built-in defaults" (lib/siteContent.defaults.ts).
  */
 export interface ISiteContent extends Document {

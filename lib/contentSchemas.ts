@@ -134,3 +134,37 @@ export const OFFERINGS_SCHEMA: Field[] = [
     t('heading', 'Heading'), ta('paragraph', 'Paragraph', 4), t('primaryButton', 'Main button label'), t('secondaryButton', 'Second button label'),
   ] },
 ]
+
+// ─── Contact ─────────────────────────────────────────────────────────────────
+export const CONTACT_SCHEMA: Field[] = [
+  { key: 'header', label: 'Page header', type: 'object', fields: [
+    t('eyebrow', 'Small label'), t('headline', 'Headline'), ta('paragraph', 'Paragraph', 3),
+  ] },
+  { key: 'info', label: 'Contact details (left column)', type: 'object', fields: [
+    t('heading', 'Heading'),
+    t('instagramLabel', 'Instagram — label'), t('instagramHandle', 'Instagram — handle shown'), t('instagramUrl', 'Instagram — link'),
+    t('emailLabel', 'Email — label'), t('email', 'Email address'),
+    t('phoneLabel', 'Phone — label'),
+    { key: 'phones', label: 'Phone / WhatsApp numbers', type: 'list', itemLabel: 'number', titleKey: 'label', blank: () => ({ label: '', number: '' }),
+      fields: [t('label', 'Number as shown (e.g. +977 9803250763)'), t('number', 'WhatsApp number for the link', 'Digits only, with country code and no + (e.g. 9779803250763).')] },
+    t('locationLabel', 'Location — label'), t('location', 'Location'),
+    t('gatheringsLabel', 'Gatherings — label'), t('gatherings', 'Gatherings'),
+  ] },
+  { key: 'qr', label: 'Social media QR codes', type: 'object',
+    help: 'Upload a QR code image for each social account. They appear in the left column under the contact details. The section is hidden when there are none.',
+    fields: [
+      t('heading', 'Heading above the QR codes'), ta('note', 'Small note (optional)', 2),
+      { key: 'items', label: 'QR codes', type: 'list', itemLabel: 'QR code', titleKey: 'label', blank: () => ({ label: '', url: '', image: '' }),
+        fields: [
+          t('label', 'Name (e.g. Instagram, Facebook, TikTok)'),
+          { key: 'image', label: 'QR code image', type: 'image', aspectRatio: '1/1' },
+          t('url', 'Link (optional)', 'If filled, clicking the QR code opens this link, e.g. https://instagram.com/novanest_777'),
+        ] },
+    ] },
+  { key: 'booking', label: 'Booking box', type: 'object', fields: [t('text', 'Text'), t('button', 'Button label')] },
+  { key: 'form', label: 'Message form', type: 'object', fields: [
+    t('heading', 'Form heading'),
+    { key: 'interestOptions', label: '"Interested in" choices', type: 'strings', addLabel: 'Add choice' },
+    { key: 'howOptions', label: '"How did you find us?" choices', type: 'strings', addLabel: 'Add choice' },
+  ] },
+]

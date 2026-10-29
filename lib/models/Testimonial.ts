@@ -4,6 +4,7 @@ export interface ITestimonial extends Document {
   name: string
   role?: string
   content: string
+  image?: string
   rating: number
   isActive: boolean
   createdAt: Date
@@ -15,6 +16,7 @@ const TestimonialSchema = new Schema<ITestimonial>(
     name:     { type: String, required: true, trim: true },
     role:     { type: String, trim: true },
     content:  { type: String, required: true },
+    image:    { type: String, trim: true },
     rating:   { type: Number, default: 5, min: 1, max: 5 },
     isActive: { type: Boolean, default: true, index: true },
   },

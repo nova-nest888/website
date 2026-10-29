@@ -2,11 +2,12 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import type { TestimonialDoc } from '@/types'
+import ImageUpload from '@/components/ui/ImageUpload'
 
 export default function EditTestimonial({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter()
   const [id, setId]         = useState('')
-  const [form, setForm]     = useState<{ name: string; role: string; content: string } | null>(null)
+  const [form, setForm]     = useState<{ name: string; role: string; content: string; image: string } | null>(null)
   const [missing, setMissing] = useState(false)
   const [saving, setSaving] = useState(false)
   const [error, setError]   = useState('')
@@ -16,7 +17,7 @@ export default function EditTestimonial({ params }: { params: Promise<{ id: stri
       setId(p.id)
       fetch('/api/testimonials').then(r => r.json()).then(d => {
         const t = (d.data ?? []).find((x: TestimonialDoc) => x.id === p.id)
-        if (t) setForm({ name: t.name, role: t.role ?? '', content: t.content }); else setMissing(true)
+        if (t) setForm({ name: t.name, role: t.role ?? '', content: t.content, image: t.image ?? '' }); else setMissing(true)
       }).catch(() => setMissing(true))
     })
   }, [params])
@@ -47,6 +48,12 @@ export default function EditTestimonial({ params }: { params: Promise<{ id: stri
         <div><label className="field-label">Their Words *</label>
           <textarea value={form.content} onChange={e => setForm({ ...form, content: e.target.value })} rows={5} className="field-input" style={{ resize:'vertical' }}/>
           <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.62rem', color:'var(--text-ghost)', marginTop:'0.3rem' }}>Quotation marks are added automatically on the site.</div></div>
+        <div>
+          <label className="field-label">Photo (optional)</label>
+          <ImageUpload value={form.image || null} onChange={url => setForm({ ...form, image: url })} aspectRatio="4/5" label="Upload photo" allowVideo={false} style={{ maxWidth: 220 }} />
+          <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.62rem', color:'var(--text-ghost)', marginTop:'0.3rem' }}>Shown beside this testimonial on the homepage.</div>
+          {form.image && <button type="button" onClick={() => setForm({ ...form, image: '' })} style={{ background:'none', border:'none', cursor:'pointer', fontFamily:'Inter,sans-serif', fontSize:'0.66rem', color:'#c0392b', padding:'0.3rem 0' }}>Remove photo</button>}
+        </div>
         {error && <div style={{ padding:'0.8rem 1rem', background:'#fef2f2', border:'1px solid #fecaca', fontFamily:'Inter,sans-serif', fontSize:'0.8rem', color:'#c0392b' }}>{error}</div>}
         <div style={{ display:'flex', gap:'1rem' }}>
           <button onClick={submit} disabled={saving} className="btn btn-forest">{saving ? 'Saving…' : 'Save'}</button>

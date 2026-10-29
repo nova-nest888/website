@@ -1,10 +1,11 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
+import type { ContactContent } from '@/lib/siteContent.defaults'
 
 type Status = 'idle' | 'sending' | 'sent' | 'error'
 
-export default function ContactClient() {
+export default function ContactClient({ content: c }: { content: ContactContent }) {
   const [form, setForm]   = useState({ name:'', email:'', phone:'', interest:'', how:'', message:'' })
   const [status, setStatus] = useState<Status>('idle')
   const [errMsg, setErrMsg] = useState('')
@@ -27,6 +28,8 @@ export default function ContactClient() {
     }
   }
 
+  const qrItems = (c.qr?.items ?? []).filter(q => q.image)
+
   const canSubmit = form.name.length > 0 && form.email.length > 0 && form.message.length >= 10
 
   return (
@@ -36,10 +39,10 @@ export default function ContactClient() {
           <path d="M0 400 Q360 180 720 260 Q1080 80 1440 180 L1440 400Z" fill="var(--forest-500)"/>
         </svg>
         <div className="container" style={{ position:'relative', zIndex:2 }}>
-          <div className="overline" style={{ color:'var(--gold-light)' }}>Get in Touch</div>
+          <div className="overline" style={{ color:'var(--gold-light)' }}>{c.header.eyebrow}</div>
           <div className="rule" style={{ background:'var(--gold)' }}/>
-          <h1 className="headline" style={{ color:'var(--parchment)', marginBottom:'1rem' }}>Contact</h1>
-          <p style={{ color:'rgba(168,192,158,0.62)', maxWidth:'460px', fontSize:'1.05rem' }}>No wrong questions here. Curious about a hike, planning a retreat for your team, or just want to know if this is your kind of thing — say hello.</p>
+          <h1 className="headline" style={{ color:'var(--parchment)', marginBottom:'1rem' }}>{c.header.headline}</h1>
+          <p style={{ color:'rgba(168,192,158,0.62)', maxWidth:'460px', fontSize:'1.05rem' }}>{c.header.paragraph}</p>
         </div>
       </section>
 
@@ -50,14 +53,14 @@ export default function ContactClient() {
             {/* Info */}
             <div>
               <h2 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.8rem', fontWeight:300, color:'var(--forest-800)', marginBottom:'2rem', lineHeight:1.3 }}>
-                There's no wrong place to start.
+                {c.info.heading}
               </h2>
               {[
-                { label:'Instagram',          value:'@novanest_777',          href:'https://instagram.com/novanest_777' },
-                { label:'Email',              value:'novanest888@gmail.com',  href:'mailto:novanest888@gmail.com' },
-                { label:'Phone / WhatsApp',   value:'+977 9803250763 / +977 9767998966', href:null, phones:[['+977 9803250763','9779803250763'],['+977 9767998966','9779767998966']] },
-                { label:'Location',           value:'***YOUR CITY, COUNTRY***',href:null },
-                { label:'Gatherings',         value:'***In-person · Virtual · Both?***', href:null },
+                { label:c.info.instagramLabel,  value:c.info.instagramHandle, href:c.info.instagramUrl },
+                { label:c.info.emailLabel,      value:c.info.email,           href:`mailto:${c.info.email}` },
+                { label:c.info.phoneLabel,      value:'', href:null, phones:c.info.phones.map(p => [p.label, p.number]) },
+                { label:c.info.locationLabel,   value:c.info.location,        href:null },
+                { label:c.info.gatheringsLabel, value:c.info.gatherings,      href:null },
               ].map(item => (
                 <div key={item.label} style={{ marginBottom:'1.5rem', paddingBottom:'1.5rem', borderBottom:'1px solid var(--border)' }}>
                   <div className="overline" style={{ marginBottom:'0.3rem' }}>{item.label}</div>
@@ -74,9 +77,30 @@ export default function ContactClient() {
                 </div>
               ))}
 
+              {qrItems.length > 0 && (
+                <div style={{ marginBottom:'1.5rem', paddingBottom:'1.5rem', borderBottom:'1px solid var(--border)' }}>
+                  <div className="overline" style={{ marginBottom:'0.8rem' }}>{c.qr.heading}</div>
+                  <div style={{ display:'flex', flexWrap:'wrap', gap:'1.2rem' }}>
+                    {qrItems.map((q, i) => {
+                      const img = (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={q.image} alt={`${q.label} QR code`} style={{ width:'112px', height:'112px', objectFit:'contain', background:'white', padding:'6px', display:'block' }}/>
+                      )
+                      return (
+                        <div key={i} style={{ textAlign:'center' }}>
+                          {q.url ? <a href={q.url} target="_blank" rel="noopener" aria-label={q.label}>{img}</a> : img}
+                          <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.7rem', fontWeight:500, color:'var(--forest-600)', marginTop:'0.4rem' }}>{q.label}</div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                  {c.qr.note && <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.7rem', color:'var(--text-ghost)', marginTop:'0.8rem', lineHeight:1.6 }}>{c.qr.note}</div>}
+                </div>
+              )}
+
               <div style={{ background:'var(--parchment-mid)', padding:'1.5rem', borderLeft:'3px solid var(--gold)', marginTop:'0.5rem' }}>
-                <div style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.1rem', fontStyle:'italic', color:'var(--forest-700)', marginBottom:'0.8rem' }}>Ready to book directly?</div>
-                <Link href="/book" className="btn btn-forest" style={{ fontSize:'0.62rem', padding:'0.65rem 1.2rem' }}>Go to Booking</Link>
+                <div style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.1rem', fontStyle:'italic', color:'var(--forest-700)', marginBottom:'0.8rem' }}>{c.booking.text}</div>
+                <Link href="/book" className="btn btn-forest" style={{ fontSize:'0.62rem', padding:'0.65rem 1.2rem' }}>{c.booking.button}</Link>
               </div>
             </div>
 
@@ -93,7 +117,7 @@ export default function ContactClient() {
                 </div>
               ) : (
                 <div style={{ display:'flex', flexDirection:'column', gap:'1.4rem' }}>
-                  <h3 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.5rem', fontWeight:300, color:'var(--forest-800)', marginBottom:'0.2rem' }}>Send a message</h3>
+                  <h3 style={{ fontFamily:"'Cormorant Garamond',Georgia,serif", fontSize:'1.5rem', fontWeight:300, color:'var(--forest-800)', marginBottom:'0.2rem' }}>{c.form.heading}</h3>
 
                   <div className="nn-rg-sm" style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'1rem' }}>
                     <div>
@@ -115,7 +139,7 @@ export default function ContactClient() {
                       <label className="field-label">Interested in</label>
                       <select value={form.interest} onChange={e=>set('interest',e.target.value)} className="field-input" style={{ cursor:'pointer' }}>
                         <option value="">Select...</option>
-                        {['Nature Experiences','Movement & Expression','Sound Healing / Breathwork','Mind, Brain & Behaviour','Retreats / Nepal Experience','Corporate / Team Retreat','Just exploring'].map(o=><option key={o}>{o}</option>)}
+                        {c.form.interestOptions.map(o=><option key={o}>{o}</option>)}
                       </select>
                     </div>
                   </div>
@@ -124,7 +148,7 @@ export default function ContactClient() {
                     <label className="field-label">How did you find us?</label>
                     <select value={form.how} onChange={e=>set('how',e.target.value)} className="field-input" style={{ cursor:'pointer' }}>
                       <option value="">Select...</option>
-                      {['Instagram (@novanest_777)','A friend','Google search','Event or retreat','Other'].map(o=><option key={o}>{o}</option>)}
+                      {c.form.howOptions.map(o=><option key={o}>{o}</option>)}
                     </select>
                   </div>
 

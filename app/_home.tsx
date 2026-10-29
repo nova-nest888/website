@@ -298,8 +298,13 @@ export default function HomeClient({ testimonials, siteImages, content: c }: { t
                   <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.78rem', fontWeight:600, color:'var(--text-primary)' }}>{t.name}</div>
                   {t.role && <div style={{ fontFamily:'Inter,sans-serif', fontSize:'0.7rem', color:'var(--text-muted)', marginTop:'0.2rem' }}>{t.role}</div>}
                 </div>
-                {/* Empty column creates visual breathing room — intentional */}
-                <div style={{ order: i % 2 === 0 ? 1 : 0 }} />
+                {/* Photo uploaded with the testimonial; empty column (breathing room) when there is none */}
+                <div style={{ order: i % 2 === 0 ? 1 : 0 }}>
+                  {t.image && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={t.image} alt={t.name} style={{ width:'100%', maxWidth:'320px', aspectRatio:'4/5', objectFit:'cover', display:'block', marginLeft: i % 2 === 0 ? 'auto' : 0 }} />
+                  )}
+                </div>
               </div>
             </RevealWrapper>
           ))}

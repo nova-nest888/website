@@ -1,13 +1,14 @@
 'use client'
 import { useEffect, useMemo, useState } from 'react'
 import { ObjectEditor, type Field } from '@/components/admin/SchemaEditor'
-import { HOME_SCHEMA, ABOUT_SCHEMA, OFFERINGS_SCHEMA } from '@/lib/contentSchemas'
+import { HOME_SCHEMA, ABOUT_SCHEMA, OFFERINGS_SCHEMA, CONTACT_SCHEMA } from '@/lib/contentSchemas'
 import type { SiteContent, SiteContentSection } from '@/lib/siteContent.defaults'
 
 const TABS: { key: SiteContentSection; label: string; path: string; schema: Field[]; blurb: string }[] = [
   { key: 'home',      label: 'Home',      path: '/',          schema: HOME_SCHEMA,      blurb: 'Headline, intro, "ways to join" cards and the bottom call-to-action. Testimonials are managed in Admin → Testimonials; the hero photo is changed on the Home page itself while logged in.' },
   { key: 'about',     label: 'About',     path: '/about',     schema: ABOUT_SCHEMA,     blurb: 'Your story, philosophy, the three pillars, timeline and "who this is for". The portrait photo is changed on the About page itself while logged in.' },
   { key: 'offerings', label: 'Offerings', path: '/offerings', schema: OFFERINGS_SCHEMA, blurb: 'Every experience card: text, lists, "in Nature" versions, layout. Prices come from Admin → Services (linked by service slug), so you only change a price in one place. Card photos are changed on the Offerings page itself while logged in.' },
+  { key: 'contact',   label: 'Contact',   path: '/contact',   schema: CONTACT_SCHEMA,   blurb: 'Page header, contact details, social media QR codes (upload one image per account), the booking box and the message-form choices.' },
 ]
 
 export default function AdminContent() {

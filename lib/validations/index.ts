@@ -63,6 +63,7 @@ export const testimonialSchema = z.object({
   name:     z.string().min(1).max(100),
   role:     z.string().max(100).optional(),
   content:  z.string().min(10).max(1000),
+  image:    z.string().url().optional().or(z.literal('')),
   rating:   z.number().min(1).max(5).default(5),
   isActive: z.boolean().default(true),
 })

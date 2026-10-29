@@ -1,5 +1,6 @@
 'use client'
 import React from 'react'
+import ImageUpload from '@/components/ui/ImageUpload'
 
 /**
  * Small schema-driven form used by Admin → Site Content.
@@ -8,6 +9,7 @@ import React from 'react'
  */
 export type Field =
   | { key: string; label: string; type: 'text' | 'textarea'; help?: string; rows?: number }
+  | { key: string; label: string; type: 'image'; help?: string; aspectRatio?: string }
   | { key: string; label: string; type: 'number'; help?: string }
   | { key: string; label: string; type: 'select'; options: string[]; help?: string }
   | { key: string; label: string; type: 'strings'; help?: string; addLabel?: string }
@@ -39,6 +41,15 @@ function FieldEditor({ field, value, onChange }: { field: Field; value: any; onC
         <div>
           <label className="field-label">{field.label}</label>
           <textarea className="field-input" rows={field.rows ?? 3} style={{ resize: 'vertical' }} value={value ?? ''} onChange={e => onChange(e.target.value)} />
+          {field.help && <div style={helpStyle}>{field.help}</div>}
+        </div>
+      )
+    case 'image':
+      return (
+        <div>
+          <label className="field-label">{field.label}</label>
+          <ImageUpload value={value || null} onChange={url => onChange(url)} aspectRatio={field.aspectRatio ?? '1/1'} label="Upload image" allowVideo={false} style={{ maxWidth: 200 }} />
+          {value && <button type="button" style={{ ...miniBtn, color: '#c0392b', paddingLeft: 0 }} onClick={() => onChange('')}>Remove image</button>}
           {field.help && <div style={helpStyle}>{field.help}</div>}
         </div>
       )

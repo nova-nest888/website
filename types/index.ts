@@ -88,6 +88,7 @@ export interface TestimonialDoc {
   name: string
   role?: string
   content: string
+  image?: string
   rating: number
   isActive: boolean
   createdAt: string

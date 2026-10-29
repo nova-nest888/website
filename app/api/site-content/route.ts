@@ -7,7 +7,7 @@ import { SiteContentModel } from '@/lib/models/SiteContent'
 import { getSiteContent, getCustomizedSections } from '@/lib/getSiteContent'
 import { apiError, apiSuccess } from '@/lib/utils'
 
-const SECTIONS = ['home', 'about', 'offerings'] as const
+const SECTIONS = ['home', 'about', 'offerings', 'contact'] as const
 
 // GET /api/site-content — admin only. Current copy (saved merged over defaults).
 export async function GET() {

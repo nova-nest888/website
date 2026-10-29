@@ -70,11 +70,15 @@ export default function AdminTestimonials() {
           {items.map(t => (
             <div key={t.id} style={{
               background:'white', padding:'1.8rem 2rem',
-              display:'grid', gridTemplateColumns:'1fr auto',
+              display:'grid', gridTemplateColumns: t.image ? 'auto 1fr auto' : '1fr auto',
               gap:'2rem', alignItems:'start',
               borderLeft:`3px solid ${t.isActive ? 'var(--gold)' : 'var(--border-strong)'}`,
               opacity: t.isActive ? 1 : 0.5,
             }}>
+              {t.image && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={t.image} alt={t.name} style={{ width:72, height:90, objectFit:'cover', display:'block' }} />
+              )}
               <div>
                 {/* Stars */}
                 <div style={{ display:'flex', gap:'2px', marginBottom:'0.6rem' }}>
